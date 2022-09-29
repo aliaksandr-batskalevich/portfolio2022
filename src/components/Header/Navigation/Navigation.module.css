@@ -1,0 +1,18 @@
+.navWrapper {
+
+}
+
+.navWrapper nav {
+    border: orangered solid 1px;
+}
+
+.list {
+    width: 500px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.list li {
+    list-style: none;
+}
