@@ -1,0 +1,4 @@
+.diagramsWrapper {
+    display: flex;
+    justify-content: space-around;
+}

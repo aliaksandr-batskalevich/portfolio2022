@@ -1,0 +1,17 @@
+.myResumePageWrapper {
+    height: 100vh;
+    background-color: orange;
+}
+
+.myResumePageWrapper > div {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.resumePartsWrapper {
+    display: flex;
+    justify-content: space-around;
+}
+

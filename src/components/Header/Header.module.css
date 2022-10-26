@@ -1,7 +1,8 @@
 .headerWrapper {
-    padding: 10px;
+    background-color: rgba(236, 154, 243, 0.4);
 
-    background-color: #ec9af3;
+    position: fixed;
+    width: 100%;
 }
 
 .headerFlexWrapper {

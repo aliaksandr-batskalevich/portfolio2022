@@ -1,0 +1,16 @@
+.diagramWrapper {
+
+}
+
+.fakeDiagram {
+    width: 200px;
+    height: 200px;
+    background-color: orangered;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 50px;
+}

@@ -9,7 +9,9 @@ export const Header = () => {
             <div className='container'>
                 <div className={s.headerFlexWrapper}>
                     <Logo/>
-                    <Navigation/></div>
+                    <h1>Title</h1>
+                    <Navigation/>
+                </div>
             </div>
         </div>
     )

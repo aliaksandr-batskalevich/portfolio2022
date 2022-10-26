@@ -1,18 +1,19 @@
 import React from "react";
 import s from './Main.module.css'
+import {Home} from "./Home/Home";
+import {AboutMe} from "./AboutMe/AboutMe";
+import {Projects} from "./Projects/Projects";
+import {MyResume} from "./MyResume/MyResume";
+import {ContactMe} from "./ContactMe/ContactMe";
 
 export const Main = () => {
     return (
         <div className={s.mainWrapper}>
-            <div className='container'>
-                <main>
-                    <div className={s.shortInf}>
-                        <h2>I am Aliaksandr Batskalevich</h2>
-                        <div>WRITER</div>
-                        <div>short information COUNTRY AGE STATUS</div>
-                    </div>
-                </main>
-            </div>
+            <Home/>
+            <AboutMe/>
+            <Projects/>
+            <MyResume/>
+            <ContactMe/>
         </div>
     )
 }

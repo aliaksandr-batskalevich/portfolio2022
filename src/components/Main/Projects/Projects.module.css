@@ -1,0 +1,17 @@
+.projectsPageWrapper {
+    background-color: gray;
+    height: 100vh;
+}
+
+.projectsPageWrapper > div {
+    height: 100%;
+}
+
+.projectsFlexWrapper {
+    height: 80%;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-around;
+}
