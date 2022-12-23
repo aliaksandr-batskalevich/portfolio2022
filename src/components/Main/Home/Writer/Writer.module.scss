@@ -1,0 +1,20 @@
+@import "/src/definitions";
+
+.writerWrapper {
+  padding: 5px 0;
+  height: 80px;
+  font-size: 50px;
+
+  & > div {
+    display: inline-block;
+  }
+
+  .writer {
+    font-weight: bold;
+    font-family: $title-font-family;
+  }
+
+  .cursor {
+  }
+}
+

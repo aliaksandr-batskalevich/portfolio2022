@@ -1,0 +1,16 @@
+@import "/src/definitions";
+
+.headerWrapper {
+    background-color: $app-background-color;
+    position: fixed;
+    height: $page-padding-top;
+    width: 100%;
+
+    .headerFlexWrapper {
+        display: flex;
+
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+

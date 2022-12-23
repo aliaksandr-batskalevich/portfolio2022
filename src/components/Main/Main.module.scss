@@ -1,0 +1,7 @@
+@import "/src/definitions";
+
+.mainWrapper {
+  & > div {
+    padding-top: $page-padding-top;
+  }
+}

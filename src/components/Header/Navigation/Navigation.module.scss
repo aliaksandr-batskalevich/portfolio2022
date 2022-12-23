@@ -1,0 +1,24 @@
+@import '/src/definitions';
+
+.navWrapper {
+  nav {
+    .list {
+      width: 500px;
+      list-style: none;
+
+      display: flex;
+      justify-content: space-between;
+
+      li {
+
+        // must be refactor
+        &:first-child a {
+          color: $red-color;
+        }
+        a {
+        }
+      }
+    }
+  }
+}
+

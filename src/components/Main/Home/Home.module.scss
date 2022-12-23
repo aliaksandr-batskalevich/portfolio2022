@@ -1,0 +1,42 @@
+@import '../../../definitions';
+
+.homePageWrapper {
+    .shortInf {
+        height: $page-height;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    h3 {
+        color: $red-color;
+        font-size: 20px;
+        font-weight: normal;
+    }
+    .smallBlockWrapper {
+        display: flex;
+        list-style: none;
+
+        .smallBlock {
+            margin-right: 12px;
+            padding-left: 7px;
+
+            border-left: $font-darken-color solid 2px;
+            min-width: 100px;
+
+            p {
+                color: $font-darken-color;
+            }
+            .birthdayParagraph {
+                color: gold;
+            }
+        }
+    }
+}
+
+
+
+
+
+
+

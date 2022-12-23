@@ -4,7 +4,7 @@ import {Project} from "./Project/Project";
 
 export const Projects = () => {
     return (
-        <div className={s.projectsPageWrapper}>
+        <div id="projects" className={s.projectsPageWrapper}>
             <div className='container'>
                 <div className={s.titleWrapper}>
                     <h2>Projects</h2>
