@@ -1,0 +1,11 @@
+.skillsWrapper {
+  h3 {
+    text-align: center;
+  }
+  .skillsFlexWrapper {
+    margin-top: 10px;
+    min-height: 250px;
+    display: flex;
+    justify-content: space-around;
+  }
+}

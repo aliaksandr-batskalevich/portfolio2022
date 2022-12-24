@@ -1,6 +1,6 @@
 import s from "./FirstPage.module.scss";
-import {Diagrams} from "./Diagrams/Diagrams";
 import React from "react";
+import {Skills} from "./Skills/Skills";
 
 
 export const FirstPage = () => {
@@ -18,8 +18,8 @@ export const FirstPage = () => {
                 <p>{summary}</p>
             </div>
             <div className={s.skillsWrapper}>
-                <h3>Skills</h3>
-                <Diagrams/>
+
+                <Skills/>
             </div>
         </div>
     );
