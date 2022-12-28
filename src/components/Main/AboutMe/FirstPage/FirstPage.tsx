@@ -17,10 +17,7 @@ export const FirstPage = () => {
             <div className={s.textInformation}>
                 <p>{summary}</p>
             </div>
-            <div className={s.skillsWrapper}>
-
-                <Skills/>
-            </div>
+            <Skills/>
         </div>
     );
 };

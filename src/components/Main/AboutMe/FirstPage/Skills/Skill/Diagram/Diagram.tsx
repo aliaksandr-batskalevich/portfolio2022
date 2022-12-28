@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import s from "../Skill.module.scss";
 
 type DiagramPropsType = {
@@ -38,8 +38,6 @@ export class Diagram extends React.Component<DiagramPropsType, any> {
         let ctx = this.refs.canvas.getContext('2d');
 
         async function renderer(percents: number, timeout: number, color: string) {
-            let endDeg = startDeg + 2 * Math.PI / 100 * percents;
-
 
             for (let i = 0; i < percents; i++) {
 

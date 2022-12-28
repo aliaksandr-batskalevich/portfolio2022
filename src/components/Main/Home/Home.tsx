@@ -41,7 +41,7 @@ export const Home = () => {
         let isBirthdayClassName = el.value.includes('-> Birthday today!') ? s.birthdayParagraph : '';
 
         return (
-            <li className={s.smallBlock}>
+            <li key={el.id} className={s.smallBlock}>
                 <h4>{el.title}</h4>
                 <p className={isBirthdayClassName}>{el.value}</p>
             </li>

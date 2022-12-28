@@ -23,7 +23,7 @@ const writer = async (callback: (str: string) => void, wordsArr: Array<string>) 
 const Writer = () => {
 
     // from BLL:
-    let wordsArr = ['PROGRAMMER', 'REACT-DEVELOPER', 'JS-DEVELOPER', 'HTML-DEVELOPER', 'INGENER', 'CONSTRUCTOR', 'INTELLECTUAL PERSON'];
+    let wordsArr = ['PROGRAMMER', 'REACT-DEVELOPER', 'JS-DEVELOPER', 'HTML-DEVELOPER', 'CONSTRUCTOR', 'FRIENDLY PERSON', 'INTELLECTUAL PERSON'];
 
     const [wordToRender, setWordToRender] = useState<string>('');
     const [isCursor, setIsCursor] = useState<boolean>(true);

@@ -3,6 +3,9 @@ import s from './Projects.module.css'
 import {Project} from "./Project/Project";
 
 export const Projects = () => {
+
+
+
     return (
         <div id="projects" className={s.projectsPageWrapper}>
             <div className='container'>
@@ -10,14 +13,6 @@ export const Projects = () => {
                     <h2>Projects</h2>
                 </div>
                 <div className={s.projectsFlexWrapper}>
-                    <Project/>
-                    <Project/>
-                    <Project/>
-                    <Project/>
-                    <Project/>
-                    <Project/>
-                    <Project/>
-                    <Project/>
                     <Project/>
                 </div>
             </div>

@@ -16,7 +16,7 @@ export const Sidebar = () => {
 
     let socialNetworkToRender = socialNetworkLinks.map(el => {
         return (
-            <li>
+            <li key={el.id}>
                 <a target='_blank' href={el.link}><img src={el.logo} alt="socialNetworkLogo"/></a>
             </li>
         )

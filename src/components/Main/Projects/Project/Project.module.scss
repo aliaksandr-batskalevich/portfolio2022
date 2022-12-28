@@ -1,0 +1,116 @@
+@import "/src/definitions";
+@import "/src/App";
+
+$transition-time: 1s;
+
+.projectWrapper {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+
+  .contentWrapper {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+    border: white solid 2px;
+
+    img {
+      display: inline-block;
+      position: absolute;
+      height: 200%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      &:hover {
+        height: 100%;
+      }
+
+      transition-duration: $transition-time;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    transition-duration: $transition-time;
+
+
+  }
+
+  .isOpenContextMenu {
+    transform: scale(1.1);
+    cursor: auto;
+
+
+    img {
+      filter: blur(5px);
+      height: 100%;
+    }
+  }
+
+  h3 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    pointer-events: none;
+    text-shadow: 2px 2px black;
+  }
+}
+
+.contextMenuWrapper {
+  position: absolute;
+  top: -100%;
+  left: 10%;
+  right: 10%;
+
+  padding: 10px;
+  border: black solid 2px;
+  border-radius: 10px;
+  opacity: 0;
+  box-shadow: -1px 1px rgba(30, 29, 29, 0.5);
+  transition-duration: 2s;
+
+  p {
+    color: black;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .buttonWrapper {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-around;
+
+    .button {
+      padding: 2px 5px;
+      border: black solid 1px;
+      border-radius: 5px;
+      min-width: 50px;
+
+      text-decoration: none;
+      text-align: center;
+      font-weight: bold;
+      color: black;
+      transition-duration: .2s;
+
+      &:hover {
+        transform: scale(1.05);
+
+        box-shadow: -1px 2px rgba(30, 29, 29, 0.5);
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+    }
+  }
+
+
+}
+
+.openContextMenuWrapper {
+  top: 15%;
+  opacity: 1;
+  box-shadow: -2px 3px rgba(30, 29, 29, 0.5);
+}
