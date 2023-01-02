@@ -1,32 +1,30 @@
-import React, {useState, MouseEvent, useRef, useEffect} from "react";
+import React, {MouseEvent, useEffect, useRef} from "react";
 import s from './Project.module.scss';
+import {ProjectType} from "../Projects";
 
+type ProjectPropsType = {
+    projectState: null | string
+    project: ProjectType
+
+    setProjectState: (state: null | string) => void
+}
 type ContextMenuComponentPropsType = {
     isMenuOpen: boolean
     codeLink: string
     viewLink: string
 }
 
-// from BLL:
-let project = {
-    title: 'Social Network',
-    image: 'https://techjournal.org/wp-content/uploads/2022/01/Goals-of-Social-Network-Analysis.jpg',
-    description: 'My first project with using React, Redux, Redux-form, REST-API.',
-    codeLink: 'https://github.com/aliaksandr-batskalevich/3-react-samurai-way/tree/master/src',
-    viewLink: 'https://aliaksandr-batskalevich.github.io/3-react-samurai-way',
-};
+export const Project: React.FC<ProjectPropsType> = ({projectState, project, setProjectState}) => {
 
-export const Project = () => {
-
-    const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+    const isMenuOpen = projectState === project.id
 
     const ref = useRef(null);
 
     useEffect(() => {
-        const checkIfClickedOutside = ( e: MouseEvent<HTMLImageElement>) => {
+        const checkIfClickedOutside = (e: MouseEvent<HTMLImageElement>) => {
             // @ts-ignore
             if (isMenuOpen && ref.current && !ref.current.contains(e.target)) {
-                setIsMenuOpen(false);
+                setProjectState(null);
             }
         };
 
@@ -41,13 +39,20 @@ export const Project = () => {
 
 
     const contextMenuCallHandler = (event: MouseEvent<HTMLImageElement>) => {
-        setIsMenuOpen(!isMenuOpen);
+        setProjectState(projectState ? null : project.id);
     };
+
+    const holderStyle = projectState && projectState !== project.id
+        ? {
+            pointerEvents: 'none' as const,
+            // zIndex: '10',
+        }
+        : undefined;
 
     const contentClassName = isMenuOpen ? `${s.isOpenContextMenu} ${s.contentWrapper}` : s.contentWrapper;
 
     return (
-        <div className={s.projectWrapper}>
+        <div className={s.projectWrapper} style={holderStyle}>
             <div className={contentClassName}>
                 <img
                     ref={ref}
@@ -60,11 +65,11 @@ export const Project = () => {
             <h3>{project.title}</h3>
         </div>
     )
-}
+};
 
 const ContextMenuComponent: React.FC<ContextMenuComponentPropsType> = ({isMenuOpen, codeLink, viewLink}) => {
 
-        let contextMenuWrapperClass = isMenuOpen ? `${s.contextMenuWrapper} ${s.openContextMenuWrapper}` : s.contextMenuWrapper;
+    let contextMenuWrapperClass = isMenuOpen ? `${s.contextMenuWrapper} ${s.openContextMenuWrapper}` : s.contextMenuWrapper;
 
     return (
         <div className={contextMenuWrapperClass}>
@@ -75,4 +80,4 @@ const ContextMenuComponent: React.FC<ContextMenuComponentPropsType> = ({isMenuOp
             </div>
         </div>
     )
-}
+};

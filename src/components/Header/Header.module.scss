@@ -5,6 +5,7 @@
     position: fixed;
     height: $page-padding-top;
     width: 100%;
+    z-index: 100;
 
     .headerFlexWrapper {
         display: flex;

@@ -4,6 +4,10 @@
 $transition-time: 1s;
 
 .projectWrapper {
+  &:not(:first-child) {
+    margin-left: 20px;
+  }
+
   position: relative;
   display: inline-block;
   cursor: pointer;

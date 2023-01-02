@@ -1,0 +1,18 @@
+.projectsPageWrapper {
+    height: 100vh;
+
+    // style for container
+    & > div {
+        height: 100%;
+    }
+
+    .projectsFlexWrapper {
+        height: 80%;
+
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: space-around;
+    }
+}
+
