@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { Project } from './Project';
 import {v1} from "uuid";
-import {ProjectType} from "../Projects";
+import {ProjectType, ToolType} from "../Projects";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -24,12 +24,13 @@ let project =  {
     description: 'My first project with using React, Redux, Redux-form, REST-API.',
     codeLink: 'https://github.com/aliaksandr-batskalevich/3-react-samurai-way/tree/master/src',
     viewLink: 'https://aliaksandr-batskalevich.github.io/3-react-samurai-way',
+    tools: ["HTML", "CSS", "TypeScript", "React", "Redux", "TDD", "REST-API", "Redux-Form"] as Array<ToolType>,
   };
 
 const [projectState, setProjectState] = useState<null | string>(null);
 
 
-const Template: ComponentStory<typeof Project> = (args) => <Project project={project} projectState={ projectState} setProjectState={setProjectState} />;
+const Template: ComponentStory<typeof Project> = (args) => <Project project={project} projectState={ projectState} setProjectState={setProjectState} orderTimeOut={1 * 150} colorTimeOut={2 * 150}/>;
 
 export const SimpleProject = Template.bind({});
 

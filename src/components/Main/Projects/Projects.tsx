@@ -1,8 +1,22 @@
 import React, {useState} from "react";
 import s from './Projects.module.scss'
 import {Project} from "./Project/Project";
+import {Filter} from "./Filter/Filter";
 
 // from BLL:
+export type ToolType =
+    'HTML'
+    | 'CSS'
+    | 'SCSS'
+    | 'JavaScript'
+    | 'TypeScript'
+    | 'React'
+    | 'Redux'
+    | 'REST-API'
+    | 'TDD'
+    | 'StoryBook'
+    | 'Redux-Form'
+    | 'MUI';
 export type ProjectType = {
     id: string
     title: string
@@ -10,7 +24,9 @@ export type ProjectType = {
     description: string
     codeLink: string
     viewLink: string
+    tools: Array<ToolType>
 };
+export type FilterType = ToolType | 'ALL';
 let projects: Array<ProjectType> = [
     {
         id: 'nkhhjkjkll;;ll;,',
@@ -19,6 +35,7 @@ let projects: Array<ProjectType> = [
         description: 'My first project with using React, Redux, Redux-form, REST-API.',
         codeLink: 'https://github.com/aliaksandr-batskalevich/3-react-samurai-way/tree/master/src',
         viewLink: 'https://aliaksandr-batskalevich.github.io/3-react-samurai-way',
+        tools: ["HTML", "CSS", "TypeScript", "React", "Redux", "TDD", "REST-API", "Redux-Form"],
     },
     {
         id: 'nkhhjj',
@@ -27,6 +44,7 @@ let projects: Array<ProjectType> = [
         description: 'My first project with using React, Redux, Redux-form, REST-API.',
         codeLink: 'https://github.com/aliaksandr-batskalevich/3-react-samurai-way/tree/master/src',
         viewLink: 'https://aliaksandr-batskalevich.github.io/3-react-samurai-way',
+        tools: ["HTML", "CSS", "TypeScript", "React", "Redux", "TDD", "REST-API", "Redux-Form", "MUI"],
     },
     {
         id: 'nkhkj',
@@ -35,6 +53,7 @@ let projects: Array<ProjectType> = [
         description: 'My portfolio',
         codeLink: 'https://github.com/aliaksandr-batskalevich/portfolio2022/tree/main/src',
         viewLink: 'https://aliaksandr-batskalevich.github.io/portfolio2022',
+        tools: ["HTML", "SCSS", "TypeScript", "React", "Redux", "TDD", "REST-API", "Redux-Form","StoryBook"],
     },
     {
         id: 'nkkj',
@@ -43,6 +62,7 @@ let projects: Array<ProjectType> = [
         description: 'My first project with using React, Redux, Redux-form, REST-API.',
         codeLink: 'https://github.com/aliaksandr-batskalevich/3-react-ignatTasks/tree/master/src',
         viewLink: 'https://aliaksandr-batskalevich.github.io/3-react-ignatTasks',
+        tools: ["HTML", "CSS", "TypeScript", "React", "Redux", "TDD", "REST-API"],
     },
     {
         id: 'nkk',
@@ -51,6 +71,7 @@ let projects: Array<ProjectType> = [
         description: 'My first project with using React, Redux, Redux-form, REST-API.',
         codeLink: 'https://github.com/aliaksandr-batskalevich/jsForChildren-snakeGame',
         viewLink: 'https://aliaksandr-batskalevich.github.io/jsForChildren-snakeGame',
+        tools: ["HTML", "CSS", "JavaScript"],
     },
     {
         id: 'nk',
@@ -59,10 +80,19 @@ let projects: Array<ProjectType> = [
         description: 'My first project with using React, Redux, Redux-form, REST-API.',
         codeLink: 'https://github.com/aliaksandr-batskalevich/htmlFinalProject',
         viewLink: 'https://aliaksandr-batskalevich.github.io/htmlFinalProject',
+        tools: ["HTML", "CSS"],
     },
 ];
 
 export const Projects = () => {
+
+    const [filter, setFilter] = useState<FilterType>('ALL');
+
+    // code for activate Component
+    let [isActive, setIsActive] = useState<boolean>(false);
+    const setIsActiveHandler = () => {
+        setIsActive(!isActive);
+    };
 
     // state for eventPointer control.
     const [projectState, setProjectState] = useState<null | string>(null);
@@ -70,17 +100,37 @@ export const Projects = () => {
         setProjectState(state);
     };
 
-    let projectsToRender = projects.map(el => <Project key={el.id} projectState={projectState} project={el} setProjectState={setProjectStateHandler}/>);
+    let projectsToRender = projects
+        .filter(el => filter === 'ALL' || el.tools.some(el => el === filter))
+        .map((el, index, array) => <Project
+            key={el.id}
+            projectState={projectState}
+            project={el}
+            setProjectState={setProjectStateHandler}
+
+            // timeOutEffects (numbers should be equal)
+            orderTimeOut={index * 0}
+            colorTimeOut={array.length * 10}
+        />);
 
     return (
         <div id="projects" className={s.projectsPageWrapper}>
             <div className='container'>
                 <div className={s.titleWrapper}>
-                    <h2>Projects</h2>
+                    <h2 onClick={setIsActiveHandler}>Projects</h2>
                 </div>
-                <div className={s.projectsFlexWrapper}>
-                    {projectsToRender}
-                </div>
+                {isActive && <>
+                    <Filter
+                        projects={projects}
+                        currentFilter={filter}
+                        setFilter={setFilter}
+                    />
+                    <div className={s.projectOutFlexWrapper}>
+                        <div className={s.projectsFlexWrapper}>
+                            {projectsToRender}
+                        </div>
+                    </div>
+                </>}
             </div>
         </div>
     )

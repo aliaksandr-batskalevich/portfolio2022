@@ -1,0 +1,17 @@
+@import "/src/definitions";
+
+.filterButtonWrapper {
+  margin-top: 10px;
+  padding: 2px 15px;
+  display: inline-block;
+  cursor: pointer;
+
+  border: white solid 1px;
+  border-radius: 5px;
+
+  font-weight: bold;
+
+  &:not(:first-child) {
+    margin-left: 10px;
+  }
+}
