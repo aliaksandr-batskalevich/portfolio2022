@@ -9,6 +9,7 @@ export const Navigation = () => {
                     <li><a href="#home">Home</a></li>
                     <li><a href="#aboutMe">About me</a></li>
                     <li><a href="#projects">Projects</a></li>
+                    <li><a href="#challenge">Challenge</a></li>
                     <li><a href="#myResume">My resume</a></li>
                     <li><a href="#contactMe">Contact me</a></li>
                 </ul>

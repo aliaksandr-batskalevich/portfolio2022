@@ -1,0 +1,18 @@
+@import "/src/definitions";
+
+.resumePartWrapper {
+
+    width: 48%;
+
+    .titleWrapper {
+
+    }
+
+    .stageWrapper {
+        height: 78px;
+
+        position: relative;
+        margin-top: 10px;
+        padding-left: $arc-diameter / 2;
+    }
+}

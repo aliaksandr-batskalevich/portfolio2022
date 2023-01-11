@@ -4,14 +4,10 @@
 $transition-time: 1s;
 
 .projectWrapper {
-
-  // transition for colorEffect
-  transition-duration: 3s;
-
   margin-left: 20px;
   margin-bottom: 20px;
-
   position: relative;
+
   cursor: pointer;
 
   .contentWrapper {
@@ -24,6 +20,10 @@ $transition-time: 1s;
 
     &:hover {
       transform: scale(1.1);
+
+      img {
+        height: 100%;
+      }
 
       .descriptions {
         opacity: 1;
@@ -38,10 +38,6 @@ $transition-time: 1s;
       left: 50%;
       transform: translate(-50%, -50%);
       transition-duration: $transition-time;
-
-      &:hover {
-        height: 100%;
-      }
     }
 
     .descriptions {
@@ -50,7 +46,7 @@ $transition-time: 1s;
 
       color: black;
       font-weight: bold;
-      background-color: rgba(255, 255, 255, 0.5);
+      background-color: $context-background-color;
       border-radius: 5px;
 
       position: absolute;
@@ -102,7 +98,7 @@ h3 {
   border-radius: 10px;
   opacity: 0;
   box-shadow: -1px 1px rgba(30, 29, 29, 0.5);
-  transition-duration: 2s;
+  transition-duration: 1s;
 
   p {
     color: black;

@@ -5,6 +5,7 @@ import {AboutMe} from "./AboutMe/AboutMe";
 import {Projects} from "./Projects/Projects";
 import {MyResume} from "./MyResume/MyResume";
 import {ContactMe} from "./ContactMe/ContactMe";
+import {Challenge} from "./Challenge/Challenge";
 
 export const Main = () => {
     return (
@@ -12,6 +13,7 @@ export const Main = () => {
             <Home/>
             <AboutMe/>
             <Projects/>
+            <Challenge/>
             <MyResume/>
             <ContactMe/>
         </div>

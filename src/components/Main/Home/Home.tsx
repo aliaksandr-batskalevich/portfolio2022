@@ -1,16 +1,13 @@
 import React from "react";
 import s from './Home.module.scss';
-import '../../../_definitions.scss';
 import Writer from "./Writer/Writer";
 import {v1} from "uuid";
+import {useSelector} from "react-redux";
+import {getGeneralInfo} from "../../../bll/selectors";
 
 export const Home = () => {
 
-    // from BLL
-    let shortInfo = {
-        fullName: {firstName: 'Aliaksandr', lastName: 'Batskalevich'},
-        birthday: '16/09/1988',
-    };
+    let {birthday, fullName, country, status, mainQualities} = useSelector(getGeneralInfo);
 
     const getAgeFromBirthday = (birthday: string) => {
         let [day, month, year] = birthday.split('/');
@@ -19,9 +16,6 @@ export const Home = () => {
         let monthNow = +date.getMonth();
         let dayNow = +date.getDay();
 
-        // data for test Birthday, will be delete.
-        // let monthNow = 9;
-        // let dayNow = 16;
 
         let age = yearNow - (+year);
         if (monthNow < +month || (monthNow === +month && dayNow < +day)) age--;
@@ -29,13 +23,13 @@ export const Home = () => {
         return result;
     };
     let briefInformation = [
-        {id: v1(), title: 'Status', value: 'Open to work'},
-        {id: v1(), title: 'Country', value: 'Belarus'},
-        {id: v1(), title: 'Age', value: getAgeFromBirthday(shortInfo.birthday)},
+        {id: v1(), title: 'Status', value: status},
+        {id: v1(), title: 'Country', value: country},
+        {id: v1(), title: 'Age', value: getAgeFromBirthday(birthday)},
     ];
 
 
-    let fullNameToRender = `I'm ${shortInfo.fullName.firstName} ${shortInfo.fullName.lastName}`;
+    let fullNameToRender = `I'm ${fullName.firstName} ${fullName.lastName}`;
     let briefInfToRender = briefInformation.map(el => {
 
         let isBirthdayClassName = el.value.includes('-> Birthday today!') ? s.birthdayParagraph : '';
@@ -53,7 +47,7 @@ export const Home = () => {
             <div className='container'>
                 <div className={s.shortInf}>
                     <h3>{fullNameToRender}</h3>
-                    <Writer/>
+                    <Writer mainQualities={mainQualities}/>
                     <ul className={s.smallBlockWrapper}>
                         {briefInfToRender}
                     </ul>

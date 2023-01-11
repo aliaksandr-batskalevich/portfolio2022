@@ -1,14 +1,21 @@
 import React from "react";
-import s from './Statistics.module.css';
-import {StatisticsPart} from "./StatisticsPart/StatisticsPart";
+import s from './Statistics.module.scss';
+import {StatisticPart} from "./StatisticsPart/StatisticPart";
+import {StatisticType} from "../MyResume";
 
-export const Statistics = () => {
+type StatisticsPropsType = {
+    isActive: boolean
+    statisticsData: Array<StatisticType>
+    timeToRender: number
+}
+
+export const Statistics: React.FC<StatisticsPropsType> = ({isActive, statisticsData, timeToRender}) => {
+
+    let statisticsToRender = statisticsData.map(el => <StatisticPart key={el.id} isActive={isActive} title={el.title} value={el.value} timeToRender={timeToRender}/>);
+
     return (
         <div className={s.statisticsWrapper}>
-            <StatisticsPart/>
-            <StatisticsPart/>
-            <StatisticsPart/>
-            <StatisticsPart/>
+            {statisticsToRender}
         </div>
-    )
-}
+    );
+};

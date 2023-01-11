@@ -1,7 +1,10 @@
 @import "/src/definitions";
 
 .mainWrapper {
-  & > div {
+
+
+  // style for class container
+  > div > div {
     padding-top: $page-padding-top;
   }
 }

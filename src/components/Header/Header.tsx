@@ -1,7 +1,7 @@
 import React from "react";
 import s from './Header.module.scss'
 import {Navigation} from "./Navigation/Navigation";
-import {Logo} from "../Logo/Logo";
+import {Logo} from "./Logo/Logo";
 
 export const Header = () => {
 

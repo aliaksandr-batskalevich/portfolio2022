@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import s from "./Writer.module.scss";
 
+type WriterPropsType = {
+    mainQualities: Array<string>
+}
+
 const writer = async (callback: (str: string) => void, wordsArr: Array<string>) => {
     wordsArr = wordsArr.map(el => ' ' + el);
     for (const word of wordsArr) {
@@ -20,10 +24,7 @@ const writer = async (callback: (str: string) => void, wordsArr: Array<string>) 
     }
 };
 
-const Writer = () => {
-
-    // from BLL:
-    let wordsArr = ['PROGRAMMER', 'REACT-DEVELOPER', 'JS-DEVELOPER', 'HTML-DEVELOPER', 'INGENER', 'CONSTRUCTOR', 'INTELLECTUAL PERSON'];
+const Writer: React.FC<WriterPropsType> = ({mainQualities}) => {
 
     const [wordToRender, setWordToRender] = useState<string>('');
     const [isCursor, setIsCursor] = useState<boolean>(true);
@@ -31,7 +32,7 @@ const Writer = () => {
 
     // useEffect for start WRITER function
     useEffect(() => {
-        writer(setWordToRender, wordsArr)
+        writer(setWordToRender, mainQualities)
             .then(() => {
                 setIsFinish(true)
             });
