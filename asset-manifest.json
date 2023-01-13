@@ -1,19 +1,21 @@
 {
   "files": {
-    "main.css": "/portfolio2022/static/css/main.7d8f4d64.css",
-    "main.js": "/portfolio2022/static/js/main.16fbf2a5.js",
+    "main.css": "/portfolio2022/static/css/main.5e643a83.css",
+    "main.js": "/portfolio2022/static/js/main.b45e2dc3.js",
     "static/js/111.66bf5f0e.chunk.js": "/portfolio2022/static/js/111.66bf5f0e.chunk.js",
-    "static/media/backgroundColorSamurai.jpg": "/portfolio2022/static/media/backgroundColorSamurai.446e0ff8bf1f39fe5df3.jpg",
+    "static/media/bgImageSamurai.jpg": "/portfolio2022/static/media/bgImageSamurai.446e0ff8bf1f39fe5df3.jpg",
     "static/media/codeWarsLogo.png": "/portfolio2022/static/media/codeWarsLogo.b70311a34be2a3fe2823.png",
     "static/media/GitHubLogo.jpg": "/portfolio2022/static/media/GitHubLogo.29d09b35c989748e8ba6.jpg",
+    "static/media/gmailLogo.png": "/portfolio2022/static/media/gmailLogo.b690ab734d4a71e4612e.png",
     "static/media/linkedInLogo.png": "/portfolio2022/static/media/linkedInLogo.bb933d6809d6410387a0.png",
+    "static/media/telegramLogo.png": "/portfolio2022/static/media/telegramLogo.c3ed7f4d4448d374c236.png",
     "index.html": "/portfolio2022/index.html",
-    "main.7d8f4d64.css.map": "/portfolio2022/static/css/main.7d8f4d64.css.map",
-    "main.16fbf2a5.js.map": "/portfolio2022/static/js/main.16fbf2a5.js.map",
+    "main.5e643a83.css.map": "/portfolio2022/static/css/main.5e643a83.css.map",
+    "main.b45e2dc3.js.map": "/portfolio2022/static/js/main.b45e2dc3.js.map",
     "111.66bf5f0e.chunk.js.map": "/portfolio2022/static/js/111.66bf5f0e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7d8f4d64.css",
-    "static/js/main.16fbf2a5.js"
+    "static/css/main.5e643a83.css",
+    "static/js/main.b45e2dc3.js"
   ]
 }
