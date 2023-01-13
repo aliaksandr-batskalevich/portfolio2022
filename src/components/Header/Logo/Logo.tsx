@@ -1,18 +1,18 @@
 import React from "react";
 import s from './Logo.module.scss'
+import {useSelector} from "react-redux";
+import {getGeneralInfo} from "../../../bll/selectors";
 
 export const Logo = () => {
 
-    // from BLL
-    let status = 'JUNIOR';
-    let fullName = {firstName: 'Aliaksandr', lastName: 'Batskalevich'}
-    //
+    let {fullName, position} = useSelector(getGeneralInfo);
+    position = position.toUpperCase();
 
     let fullNameToRender = `${fullName.firstName} ${fullName.lastName}`;
 
     return (
         <div className={s.logoWrapper}>
-            <h1>{status}</h1>
+            <h1>{position}</h1>
             <span>{fullNameToRender}</span>
         </div>
     )

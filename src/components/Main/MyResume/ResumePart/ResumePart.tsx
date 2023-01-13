@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import s from './ResumePart.module.scss'
 import {ResumeStage} from "./ResumeStage/ResumeStage";
-import {StudyType, WorkType} from "../MyResume";
+import {StudyType, WorkType} from "../../../../bll/resumeReduucer";
 
 type ResumePartPropsType = {
     studies?: Array<StudyType>

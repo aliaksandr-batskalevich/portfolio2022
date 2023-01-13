@@ -1,22 +1,22 @@
 import React from 'react';
 import s from './FilterButton.module.scss';
-import {FilterType} from "../../Projects";
+import {ProjectFilterType} from "../../../../../bll/definitionsReducer";
 
 type FilterButtonPropsType = {
-    currentFilter: FilterType
-    title: FilterType
+    currentProjectFilter: ProjectFilterType
+    title: ProjectFilterType
     projectsCount: number
 
-    setFilter: (filter: FilterType) => void
+    setCurrentProjectFilter: (filter: ProjectFilterType) => void
 }
 
-export const FilterButton: React.FC<FilterButtonPropsType> = ({currentFilter, title, projectsCount, setFilter}) => {
+export const FilterButton: React.FC<FilterButtonPropsType> = ({currentProjectFilter, title, projectsCount, setCurrentProjectFilter}) => {
 
     const setFilterHandler = () => {
-        setFilter(title);
+        setCurrentProjectFilter(title);
     };
 
-    const activeButtonStyle = currentFilter === title
+    const activeButtonStyle = currentProjectFilter === title
         ? {backgroundColor: 'white', color: 'black'}
         : undefined;
 

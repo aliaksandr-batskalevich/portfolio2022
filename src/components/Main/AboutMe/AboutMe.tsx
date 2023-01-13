@@ -4,11 +4,12 @@ import {FirstPage} from "./FirstPage/FirstPage";
 import {SecondPage} from "./SecondPage/SecondPage";
 
 export const AboutMe = () => {
+
     return (
         <div id="aboutMe" className={s.aboutMePageWrapper}>
             <div className='container'>
-                <FirstPage/>
-                <SecondPage/>
+                <FirstPage />
+                <SecondPage />
             </div>
         </div>
     )

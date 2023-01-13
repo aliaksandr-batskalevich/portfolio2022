@@ -1,6 +1,6 @@
 import React from "react";
 import s from './ResumeStage.module.scss'
-import {StudyType, WorkType} from "../../MyResume";
+import {StudyType, WorkType} from "../../../../../bll/resumeReduucer";
 
 type ResumeStagePropsType = {
     study?: StudyType

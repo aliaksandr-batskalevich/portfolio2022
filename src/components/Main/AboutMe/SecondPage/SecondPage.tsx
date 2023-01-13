@@ -1,21 +1,18 @@
 import React from 'react';
 import s from "./SecondPage.module.scss";
-import {v1} from "uuid";
+import {useSelector} from "react-redux";
+import {getMyQuote} from "../../../../bll/selectors";
+
 
 export const SecondPage = () => {
 
-    // from BLL:
-    let citation = {
-        id: v1(),
-        text: '\"I can do anything, it just takes knowledge and time. Give me time and I will do it.\"',
-        subscription: 'Aliaksandr B.',
-    }
+    let myQuote = useSelector(getMyQuote);
 
     return (
         <div className={s.secondPage}>
             <div className={s.postWrapper}>
-                <p>{citation.text}</p>
-                <p className={s.subscription}>{citation.subscription}</p>
+                <p>{myQuote.text}</p>
+                <p className={s.subscription}>{myQuote.subscription}</p>
             </div>
         </div>
     );

@@ -1,75 +1,85 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import s from './CodeWars.module.scss';
+import {useSelector} from "react-redux";
+import {getCodeWarsData, getIsDataFetching, getIsFetchingError} from "../../../../bll/selectors";
+import {useAppDispatch} from "../../../../utilites/customHooks";
+import {getUserDataTC} from "../../../../bll/challengeReducer";
 
-type CodeWarsPropsType = {
+export const CodeWars = () => {
 
-};
 
-// from BLL:
-const codeWarsData = {
-    "username": "aliaksandr-batskalevich",
-    "name": "Aliaksandr Batskalevich",
-    "honor": 1150,
-    "clan": "no clan",
-    "leaderboardPosition": 5120,
-    "skills": ["javascript"],
-    "ranks": {
-        "overall": {
-            "rank": -3,
-            "name": "4 kyu",
-            "color": "blue",
-            "score": 1150
-        },
-        "languages": {
-            "javascript": {
-                "rank": -3,
-                "name": "3 kyu",
-                "color": "blue",
-                "score": 1819
-            },
-        }
-    },
-    "codeChallenges": {
-        "totalAuthored": 3,
-        "totalCompleted": 230
+    let isDataFetching = useSelector(getIsDataFetching);
+    let isFetchingError = useSelector(getIsFetchingError);
+    let {username, honor, leaderboardPosition, ranks, codeChallenges} = useSelector(getCodeWarsData)
+    let {overall, languages} = ranks;
+    let languagesToRender = languages ? Object.keys(languages).join(', ') : null;
+    let rankName = overall.name;
+    let rankColorStyle = {color: 'dark' + overall.color};
+    let completedKata = codeChallenges.totalCompleted;
+
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        let pr = dispatch(getUserDataTC());
+    }, [])
+
+    const refreshUserDataHandler = () => {
+        let pr = dispatch(getUserDataTC());
+    };
+
+    class OptionPart {
+        title: string
+        value: null | string | number
+
+        constructor(title: string, value: null | string | number) {
+            this.title = title;
+            this.value = value;
+        };
     }
-};
 
-export const CodeWars: React.FC<CodeWarsPropsType> = () => {
+    let optionPartsArr = [
+        new OptionPart('username: ', username),
+        new OptionPart('honor: ', honor),
+        new OptionPart('leaderboardPosition: ', leaderboardPosition),
+        new OptionPart('languages: ', languagesToRender),
+        new OptionPart('completed kata: ', completedKata),
+    ];
 
-    let data = codeWarsData;
-    let skills = data.skills.join(', ');
-    let rankColorStyle = {color: 'dark' + data.ranks.overall.color};
+    let optionPartsToRender = optionPartsArr.map((el, index) => <div key={index}>
+        <span className={s.title}>{el.title}</span>
+        <span className={s.value}>{el.value}</span>
+    </div>);
+
+    let contentWrapperAlignStyle = {justifyContent: isDataFetching || isFetchingError ? 'center' : 'flex-start'};
+    let buttonDisabledStyle = isDataFetching
+        ? {pointerEvents: 'none' as const, opacity: '0.5'}
+        : undefined;
 
     return (
         <div className={s.codeWarsWrapper}>
-            <div className={s.columnWrapper}>
-                <div className={s.firstColumn}>
-                    <div>
-                        <span className={s.title}>username: </span>
-                        <span className={s.value}>{data.username}</span>
-                    </div>
-                    <div>
-                        <span className={s.title}>honor: </span>
-                        <span className={s.value}>{data.honor}</span>
-                    </div>
-                    <div>
-                        <span className={s.title}>leaderboardPosition: </span>
-                        <span className={s.value}>{data.leaderboardPosition}</span>
-                    </div>
-                    <div>
-                        <span className={s.title}>skills: </span>
-                        <span className={s.value}>{skills}</span>
-                    </div>
-                </div>
-                <div className={s.secondColumn}>
-                    <h3 className={s.rank} style={rankColorStyle}>
-                        {data.ranks.overall.name}
-                    </h3>
-                </div>
+            <div className={s.contentWrapper} style={contentWrapperAlignStyle}>
+                {isDataFetching
+                    ? 'loading...'
+                    : isFetchingError
+                        ? isFetchingError
+                        : <>
+                            <div className={s.firstColumn}>
+                                {optionPartsToRender}
+                            </div>
+                            <div className={s.secondColumn}>
+                                <h3 className={s.rank} style={rankColorStyle}>
+                                    {rankName}
+                                </h3>
+                            </div>
+                        </>}
             </div>
             <div className={s.buttonWrapper}>
-                <div className={s.refreshButton}>REFRESH DATA</div>
+                <div
+                    style={buttonDisabledStyle}
+                    className={s.refreshButton}
+                    onClick={refreshUserDataHandler}
+                >REFRESH DATA
+                </div>
             </div>
         </div>
     );

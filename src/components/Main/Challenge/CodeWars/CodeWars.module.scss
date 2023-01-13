@@ -1,9 +1,13 @@
 @import "/src/definitions";
 
 .codeWarsWrapper {
+  display: flex;
+  flex-direction: column;
 
-  .columnWrapper {
+  .contentWrapper {
+    min-height: 160px;
     display: flex;
+    align-items: center;
 
     .firstColumn {
       display: flex;

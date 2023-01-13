@@ -3,11 +3,13 @@ import s from './Home.module.scss';
 import Writer from "./Writer/Writer";
 import {v1} from "uuid";
 import {useSelector} from "react-redux";
-import {getGeneralInfo} from "../../../bll/selectors";
+import {getCountry, getGeneralInfo, getMainQualities} from "../../../bll/selectors";
 
 export const Home = () => {
 
-    let {birthday, fullName, country, status, mainQualities} = useSelector(getGeneralInfo);
+    let {birthday, fullName, status} = useSelector(getGeneralInfo);
+    let mainQualities = useSelector(getMainQualities);
+    let country = useSelector(getCountry);
 
     const getAgeFromBirthday = (birthday: string) => {
         let [day, month, year] = birthday.split('/');

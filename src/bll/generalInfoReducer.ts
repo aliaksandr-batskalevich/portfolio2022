@@ -1,23 +1,20 @@
 import {ActionsType} from "./store";
 
-export type GeneralInfoStateType = typeof GeneralInfoInitState;
+export type GeneralInfoStateType = typeof generalInfoInitState;
 
-const GeneralInfoInitState = {
+const generalInfoInitState = {
     fullName: {firstName: 'Aliaksandr', lastName: 'Batskalevich'},
     birthday: '16/09/1988',
-    country: 'Belarus',
+    position: 'Junior',
     status: 'Open to work',
-    links: {
-        socialNetworks: {
-            linkedIn: 'https://www.linkedin.com/in/aliaksandr-batskalevich',
-        },
-        gitHub: 'https://github.com/aliaksandr-batskalevich',
-        codeWars: 'https://www.codewars.com/users/aliaksandr-batskalevich',
+    languages: {
+        belarusian: 'native',
+        russian: 'native',
+        english: 'A2'
     },
-    mainQualities: ['PROGRAMMER', 'REACT-DEVELOPER', 'JS-DEVELOPER', 'HTML-DEVELOPER', 'ENGINEER', 'CONSTRUCTOR'],
 };
 
-export const generalInfoReducer = (state: GeneralInfoStateType = GeneralInfoInitState, action: ActionsType) => {
+export const generalInfoReducer = (state: GeneralInfoStateType = generalInfoInitState, action: ActionsType) => {
     switch (action.type) {
         default: return state;
     }

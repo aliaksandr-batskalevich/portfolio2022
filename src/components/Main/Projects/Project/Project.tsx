@@ -1,7 +1,9 @@
-import React, {MouseEvent, useEffect, useRef, useState} from "react";
+import React, {MouseEvent, useEffect, useRef} from "react";
 import s from './Project.module.scss';
-import {ProjectType} from "../Projects";
 import {Rating} from "../../../commons/Rating/Rating";
+import {ProjectType} from "../../../../bll/projectsReducer";
+import {getTimeToProjectMenuOpenCloseSec} from "../../../../bll/selectors";
+import {useSelector} from "react-redux";
 
 type ProjectPropsType = {
     projectState: null | string
@@ -57,7 +59,7 @@ export const Project: React.FC<ProjectPropsType> = ({projectState, project, setP
     const contentClassName = isMenuOpen ? `${s.isOpenContextMenu} ${s.contentWrapper}` : s.contentWrapper;
 
     const setCurrentRatingHAndler = (newRating: number) => {
-        setCurrentRating(project.title, newRating);
+        setCurrentRating(project.id, newRating);
     };
 
     return (
@@ -92,10 +94,14 @@ export const Project: React.FC<ProjectPropsType> = ({projectState, project, setP
 
 const ContextMenuComponent: React.FC<ContextMenuComponentPropsType> = ({isMenuOpen, codeLink, viewLink}) => {
 
+    let timeToProjectMenuOpenCloseSec = useSelector(getTimeToProjectMenuOpenCloseSec);
+    let timeToMoveStyle = {transitionDuration: `${timeToProjectMenuOpenCloseSec}s`};
+
     let contextMenuWrapperClass = isMenuOpen ? `${s.contextMenuWrapper} ${s.openContextMenuWrapper}` : s.contextMenuWrapper;
 
+
     return (
-        <div className={contextMenuWrapperClass}>
+        <div className={contextMenuWrapperClass} style={timeToMoveStyle}>
             <p>Open in:</p>
             <div className={s.buttonWrapper}>
                 <a className={s.button} href={codeLink} target='_blank'>Code</a>
