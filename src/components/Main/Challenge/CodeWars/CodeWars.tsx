@@ -61,7 +61,7 @@ export const CodeWars = () => {
                 {isDataFetching
                     ? 'loading...'
                     : isFetchingError
-                        ? isFetchingError
+                        ? `Error: ${isFetchingError}`
                         : <>
                             <div className={s.firstColumn}>
                                 {optionPartsToRender}

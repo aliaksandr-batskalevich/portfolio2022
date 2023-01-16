@@ -6,6 +6,6 @@ const codeWarsInstance = axios.create({
 
 export const codeWarsAPI = {
     getUserData(userName: string) {
-        return codeWarsInstance.get(`users/${userName}`);
+        return codeWarsInstance.get(`users/${userName}`)
     }
 };

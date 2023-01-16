@@ -1,6 +1,7 @@
 import {ActionsType} from "./store";
 import {ThunkAppDispatchType} from "../utilites/customHooks";
 import {codeWarsAPI} from "../dal/api";
+import axios, {AxiosError} from "axios";
 
 export type ChallengeActionsType = ReturnType<typeof setIsDataFetching>
     | ReturnType<typeof setCodeWarsData>
@@ -107,13 +108,29 @@ const setCodeWarsData = (codeWarsData: CodeWarsDataType) => {
 export const getUserDataTC = () => async (dispatch: ThunkAppDispatchType) => {
     dispatch(setIsDataFetching(true));
     dispatch(setIsFetchingError(null));
+
     try {
         let response = await codeWarsAPI.getUserData(challengeInitState.codeWarsUserName);
-        dispatch(setCodeWarsData(response.data));
-        dispatch(setIsDataFetching(false));
+
+        if (response.status >= 200 && response.status < 300) {
+            dispatch(setCodeWarsData(response.data));
+            dispatch(setIsDataFetching(false));
+        } else {
+            throw new Error(response.statusText);
+        }
     } catch (error) {
+        let errorMessage: string
+
+        if (axios.isAxiosError(error)) {
+            errorMessage = error.response
+                ? error.response.data.reason
+                : error.message;
+        } else {
+            // @ts-ignore
+            errorMessage = error.message;
+        }
+
+        dispatch(setIsFetchingError(errorMessage));
         dispatch(setIsDataFetching(false));
-        // @ts-ignore
-        dispatch(setIsFetchingError(error.message));
     }
-}
+};

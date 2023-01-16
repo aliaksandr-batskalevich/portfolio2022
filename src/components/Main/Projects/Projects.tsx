@@ -69,15 +69,16 @@ export const Projects = () => {
     return (
         <div id="projects" className={s.projectsPageWrapper}>
             <div className='container'>
-                <div className={s.titleWrapper}>
-                    <h2 onClick={setIsActiveHandler}>Projects</h2>
-                </div>
-                <Filter
-                    projects={projects}
-                    currentProjectFilter={currentProjectFilter}
-                    setCurrentProjectFilter={setCurrentProjectFilterHandler}
-                />
-                <div className={s.projectOutFlexWrapper}>
+                <div className={s.headWrapper}>
+                    <div className={s.titleWrapper}>
+                        <h2 onClick={setIsActiveHandler}>Projects</h2>
+                    </div>
+                    <Filter
+                        projects={projects}
+                        currentProjectFilter={currentProjectFilter}
+                        setCurrentProjectFilter={setCurrentProjectFilterHandler}
+                    /></div>
+                <div className={s.projectsOutFlexWrapper}>
                     <div className={s.projectsFlexWrapper}>
                         {projectsToRender}
                     </div>
