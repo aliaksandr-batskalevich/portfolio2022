@@ -8,6 +8,7 @@ import {ProjectsActionsType, projectsReducer} from "./projectsReducer";
 import {ChallengeActionsType, challengeReducer} from "./challengeReducer";
 import {resumeReducer} from "./resumeReduucer";
 
+
 export type ActionsType = DefinitionsActionsType | ProjectsActionsType | ChallengeActionsType;
 export type RootAppStateType = ReturnType<typeof rootReducer>;
 
@@ -22,3 +23,6 @@ let rootReducer = combineReducers({
 });
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware));
+
+// @ts-ignore
+window.store = store;

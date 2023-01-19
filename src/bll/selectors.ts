@@ -46,11 +46,13 @@ export const getFilteredProjects = createSelector(getCurrentProjectFilter, getMy
     return myProjects.filter(pr => pr.tools.some(t => t === currentProjectFilter));
 });
 
+
 // challenge
 export const getChallengeDescriptions = (state: RootAppStateType): string => state.challenge.descriptions;
 export const getIsDataFetching = (state: RootAppStateType): boolean => state.challenge.isDataFetching;
 export const getIsFetchingError = (state: RootAppStateType): null | string => state.challenge.isFetchingError;
 export const getCodeWarsData = (state: RootAppStateType): CodeWarsDataType => state.challenge.codeWarsData;
+
 
 // resume
 export const getResumeState = (state: RootAppStateType): ResumeStateType => state.resume;

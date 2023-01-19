@@ -26,9 +26,7 @@ export type ProjectType = {
     tools: Array<ToolType>
     averageRating: number
 };
-export type CurrentProjectRatingType = {
-    [id: string]: number
-};
+export type CurrentProjectRatingType = Record<string, number>;
 
 type projectsStateType = {
     myProjects: Array<ProjectType>
