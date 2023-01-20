@@ -19,14 +19,15 @@ export type LinkType = {
     link: string
     logo: string
 }
-export type LinksType = {
-    [key: string]: LinkType
-};
+export type LinksType = Record<string, LinkType>;
+export type ContactsPatternType = Array<string>
 export type ContactsStateType = {
     address: AddressType
     phoneNumber: string
     links: LinksType
+    contactsPattern: ContactsPatternType
 }
+export type MyContactsType = Array<{title: string, value: string}>
 
 const contactsInitState: ContactsStateType = {
     address: {
@@ -69,6 +70,7 @@ const contactsInitState: ContactsStateType = {
             logo: codeWarsLogo,
             },
     },
+    contactsPattern: ['Phone Number', 'Telegram', 'Email', 'LinkedIn', 'GitHub', 'CodeWars'],
 };
 
 export const contactsReducer = (state: ContactsStateType = contactsInitState, action: ActionsType) => {

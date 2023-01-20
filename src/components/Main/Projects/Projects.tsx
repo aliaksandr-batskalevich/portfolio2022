@@ -5,21 +5,19 @@ import {Filter} from "./Filter/Filter";
 import {useSelector} from "react-redux";
 import {
     getCurrentProjectFilter,
-    getCurrentProjectRating,
-    getFilteredProjects,
+    getToolsFilteredProjects,
     getMyProjects, getTimeToProjectsColorEffectSec
 } from "../../../bll/selectors";
 import {ProjectFilterType, setCurrentProjectFilter} from "../../../bll/definitionsReducer";
 import {useAppDispatch} from "../../../utilites/customHooks";
-import {addCurrentProjectRating} from "../../../bll/projectsReducer";
+import {changeCurrentProjectRating, RatingType, setProjectToFormRating} from "../../../bll/projectsReducer";
 
 
 export const Projects = () => {
 
     let projects = useSelector(getMyProjects);
     let currentProjectFilter = useSelector(getCurrentProjectFilter);
-    let filteredProjects = useSelector(getFilteredProjects);
-    let currentRatingState = useSelector(getCurrentProjectRating);
+    let filteredProjects = useSelector(getToolsFilteredProjects);
     let timeToProjectsColorEffectSec = useSelector(getTimeToProjectsColorEffectSec);
 
     const dispatch = useAppDispatch();
@@ -27,8 +25,8 @@ export const Projects = () => {
     const setCurrentProjectFilterHandler = (currentProjectFilter: ProjectFilterType) => {
         dispatch(setCurrentProjectFilter(currentProjectFilter))
     };
-    const setCurrentRatingStateHandler = (id: string, currentRating: number) => {
-        dispatch(addCurrentProjectRating(id, currentRating));
+    const setCurrentRatingStateHandler = (id: string, currentRating: RatingType) => {
+        dispatch(changeCurrentProjectRating(id, currentRating));
     };
 
 
@@ -49,15 +47,10 @@ export const Projects = () => {
 
     let projectsToRender = filteredProjects.map(pr => {
 
-            let currentRating = currentRatingState[pr.id]
-                ? currentRatingState[pr.id]
-                : null;
-
             return <Project
                 key={pr.id}
                 projectState={projectState}
                 project={pr}
-                currentRating={currentRating}
                 isColorActive={isColorActive}
                 timeToRenderSec={timeToProjectsColorEffectSec}
 

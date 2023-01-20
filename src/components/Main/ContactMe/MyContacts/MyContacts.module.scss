@@ -1,0 +1,49 @@
+@import "/src/definitions";
+
+.myContactsWrapper {
+  margin-top: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+
+  .myContactsColumn {
+
+    .myContactWrapper {
+      display: flex;
+
+      > *:not(:first-child) {
+        margin-left: 10px;
+      }
+
+      .myContactTitleWrapper {
+        h4 {
+          font-size: 16px;
+        }
+      }
+      .myContactValueWrapper {
+        display: flex;
+        align-items: center;
+        a {
+          color: $font-darken-color;
+          text-decoration: none;
+          font-size: 16px;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+      .clipBoardCopy {
+        cursor: pointer;
+
+        &:hover {
+          transform: scale(1.2);
+        }
+
+        &::after {
+          content: '🗋';
+        }
+      }
+    }
+  }
+}

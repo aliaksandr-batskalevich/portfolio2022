@@ -12,8 +12,10 @@ export const Logo = () => {
 
     return (
         <div className={s.logoWrapper}>
-            <h1>{position}</h1>
-            <span>{fullNameToRender}</span>
+            <a href="#home">
+                <h1>{position}</h1>
+                <span>{fullNameToRender}</span>
+            </a>
         </div>
     )
 }

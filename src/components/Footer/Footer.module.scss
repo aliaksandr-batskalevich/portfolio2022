@@ -1,0 +1,20 @@
+@import "/src/definitions";
+
+.footerWrapper {
+  margin-top: 10px;
+  border-top: $font-darken-color solid 1px;
+  > div {
+    height: 10vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .copyRight {
+    color: $font-darken-color;
+
+    &::before {
+      margin-right: 5px;
+      content: '©';
+    }
+  }
+}

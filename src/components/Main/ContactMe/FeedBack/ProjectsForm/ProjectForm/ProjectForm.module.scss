@@ -1,0 +1,40 @@
+@import "/src/definitions";
+
+.projectFormWrapper {
+  display: flex;
+  align-items: center;
+
+
+  > * {
+    &:not(:first-child) {
+      margin-left: 15px;
+    }
+  }
+
+  .removeProjectButton {
+    cursor: pointer;
+    &::after{
+      content: '✗';
+      display: inline-block;
+      color: $red-color
+    }
+  }
+
+  h5 {
+    font-size: 18px;
+    flex-grow: 1;
+  }
+
+  .ratingWrapper {
+
+  }
+
+  .commentWrapper {
+
+    textarea {
+      padding: 0 5px;
+      width: 300px;
+      resize: none;
+    }
+  }
+}

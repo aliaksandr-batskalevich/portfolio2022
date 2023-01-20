@@ -1,10 +1,10 @@
 import {RootAppStateType} from "./store";
 import {GeneralInfoStateType} from "./generalInfoReducer";
 import {MyQuoteType, SkillType} from "./aboutMeReducer";
-import {LinksType} from "./contactsReducer";
+import {ContactsPatternType, LinksType, MyContactsType} from "./contactsReducer";
 import {createSelector} from "reselect";
-import {CurrentProjectRatingType, ProjectType} from "./projectsReducer";
-import {ProjectFilterType} from "./definitionsReducer";
+import {FeedbackPreviewType, ProjectToRatingType, ProjectType} from "./projectsReducer";
+import {FeedbackModeType, ProjectFilterType} from "./definitionsReducer";
 import {CodeWarsDataType} from "./challengeReducer";
 import {ResumeStateType} from "./resumeReduucer";
 
@@ -13,6 +13,7 @@ export const getFollowMeNetworks = (state: RootAppStateType): Array<string> => s
 export const getCurrentProjectFilter = (state: RootAppStateType): ProjectFilterType => state.definitions.currentProjectFilter;
 export const getTimeToProjectsColorEffectSec = (state: RootAppStateType): number => state.definitions.timeToProjectsColorEffectSec;
 export const getTimeToProjectMenuOpenCloseSec = (state: RootAppStateType): number => state.definitions.timeToProjectMenuOpenCloseSec;
+export const getFeedbackMode = (state: RootAppStateType): FeedbackModeType => state.definitions.feedbackMode;
 
 
 // generalInfo
@@ -23,12 +24,21 @@ export const getGeneralInfo = (state: RootAppStateType): GeneralInfoStateType =>
 export const getCountry = (state: RootAppStateType): string => state.contacts.address.country;
 export const getPhoneNumber = (state: RootAppStateType): string => state.contacts.phoneNumber;
 export const getLinksObj = (state: RootAppStateType): LinksType => state.contacts.links;
+export const getContactsPattern = (state: RootAppStateType): ContactsPatternType => state.contacts.contactsPattern;
 // selectors by RESELECT
 export const getFollowMeLinksArr = createSelector(getLinksObj, getFollowMeNetworks, (links, followMeDefinitions) => {
     let allLinksArr = Object.values(links);
-    return  allLinksArr.filter(link => followMeDefinitions.some(fm => fm.toLowerCase() === link.title.toLowerCase()));
+    return allLinksArr.filter(link => followMeDefinitions.some(fm => fm.toLowerCase() === link.title.toLowerCase()));
 });
-
+export const getMyContacts = createSelector(getPhoneNumber, getLinksObj, (myPhoneNumber: string, myLinksObj: LinksType): MyContactsType => {
+    let resultArr = [{title: 'Phone Number', value: myPhoneNumber}];
+    let linksValues = Object.values(myLinksObj);
+    for (let linksValue of linksValues) {
+        resultArr.push({title: linksValue.title, value: linksValue.link});
+    }
+    return resultArr;
+});
+export const getMyContactsPatternSort = createSelector(getMyContacts, getContactsPattern, (myContacts: MyContactsType, contactsPattern: ContactsPatternType): MyContactsType => contactsPattern.map(cp => myContacts.find(c => c.title === cp) ?? {title: cp, value: 'Not found'}));
 
 // aboutMe
 export const getMainQualities = (state: RootAppStateType): Array<string> => state.aboutMe.mainQualities;
@@ -39,12 +49,26 @@ export const getMyQuote = (state: RootAppStateType): MyQuoteType => state.aboutM
 
 // myProjects
 export const getMyProjects = (state: RootAppStateType): Array<ProjectType> => state.projects.myProjects;
-export const getCurrentProjectRating = (state: RootAppStateType): CurrentProjectRatingType => state.projects.currentProjectRating;
 // selectors by RESELECT
-export const getFilteredProjects = createSelector(getCurrentProjectFilter, getMyProjects, (currentProjectFilter, myProjects): Array<ProjectType> => {
+export const getToolsFilteredProjects = createSelector(getCurrentProjectFilter, getMyProjects, (currentProjectFilter, myProjects): Array<ProjectType> => {
     if (currentProjectFilter === 'ALL') return myProjects;
     return myProjects.filter(pr => pr.tools.some(t => t === currentProjectFilter));
 });
+export const getMyProjectsInRatingType = createSelector(getMyProjects, (myProjects: Array<ProjectType>): Array<ProjectToRatingType> => myProjects.map(pr => ({
+    id: pr.id,
+    title: pr.title,
+    rating: pr.rating,
+    comments: pr.comments,
+})));
+export const getProjectsToRating = createSelector(getMyProjectsInRatingType, (myProjectsInRatingType: Array<ProjectToRatingType>): Array<ProjectToRatingType> => myProjectsInRatingType.filter(pr => pr.rating.currentRating !== null));
+export const getProjectsToRatingDataSort = createSelector(getProjectsToRating, (projectsToRating: Array<ProjectToRatingType>): Array<ProjectToRatingType> => projectsToRating.sort((a, b) => a.rating.dateCurrentRatingAdd && b.rating.dateCurrentRatingAdd && a.rating.dateCurrentRatingAdd > b.rating.dateCurrentRatingAdd ? 1 : -1));
+export const getProjectsTitlesForRatingSelectSort = createSelector(getMyProjects, getProjectsToRatingDataSort, (myProjects: Array<ProjectType>, projectsToRating: Array<ProjectToRatingType>): Array<string> => myProjects
+    .filter(pr => !projectsToRating.some(rp => rp.id === pr.id))
+    .map(pr => pr.title)
+    .sort());
+
+// feedbackPreview
+export const getFeedbackPreviewData = (state: RootAppStateType): FeedbackPreviewType => state.projects.feedbackPreview;
 
 
 // challenge

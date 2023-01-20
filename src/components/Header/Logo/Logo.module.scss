@@ -1,13 +1,17 @@
 @import '../../../definitions';
 
 .logoWrapper {
-    h1 {
-        border-bottom: $red-color solid 1px;
-        text-align: center;
-        letter-spacing: 3px;
-    }
-    span {
-        font-weight: normal;
-        font-size: 12px;
+    a {
+        text-decoration: none;
+
+        h1 {
+            border-bottom: $red-color solid 1px;
+            text-align: center;
+            letter-spacing: 3px;
+        }
+        span {
+            font-weight: normal;
+            font-size: 12px;
+        }
     }
 }

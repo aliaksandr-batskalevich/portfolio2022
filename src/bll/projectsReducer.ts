@@ -1,7 +1,13 @@
 import {ActionsType} from "./store";
 import {v1} from "uuid";
 
-export type ProjectsActionsType = ReturnType<typeof addCurrentProjectRating>
+export type ProjectsActionsType = ReturnType<typeof changeCurrentProjectRating>
+    | ReturnType<typeof removeCurrentProjectRating>
+    | ReturnType<typeof setProjectToFormRating>
+    | ReturnType<typeof changeProjectComments>
+    | ReturnType<typeof setFeedbackPreview>
+    | ReturnType<typeof setClearFeedbackPreview>
+
 export type ToolType =
     'HTML'
     | 'CSS'
@@ -16,6 +22,12 @@ export type ToolType =
     | 'Redux-Form'
     | 'MUI'
     | 'Reselect';
+export type RatingType = 0 | 1 | 2 | 3 | 4 | 5;
+type RatingStateType = {
+    averageRating: number
+    currentRating: null | RatingType
+    dateCurrentRatingAdd: null | Date
+};
 export type ProjectType = {
     id: string
     title: string
@@ -24,16 +36,37 @@ export type ProjectType = {
     codeLink: string
     viewLink: string
     tools: Array<ToolType>
-    averageRating: number
+    rating: RatingStateType
+    comments: string
 };
-export type CurrentProjectRatingType = Record<string, number>;
+export type ProjectToRatingType = {
+    id: string
+    title: string
+    rating: RatingStateType
+    comments: string
+};
+export type FeedbackPreviewType = {
+    name: string
+    email: string
+    text: string
+    rating: Record<string, string>
+    comments: Record<string, string>
+};
 
-type projectsStateType = {
+export type ProjectsStateType = {
     myProjects: Array<ProjectType>
-    currentProjectRating: CurrentProjectRatingType
+    feedbackPreview: FeedbackPreviewType
 };
 
-const projectsInitState: projectsStateType = {
+const clearFeedbackPreview: FeedbackPreviewType = {
+    name: '',
+    email: '',
+    text: '',
+    rating: {},
+    comments: {},
+};
+
+const projectsInitState: ProjectsStateType = {
     myProjects: [
         {
             id: v1(),
@@ -43,7 +76,12 @@ const projectsInitState: projectsStateType = {
             codeLink: 'https://github.com/aliaksandr-batskalevich/3-react-samurai-way/tree/master/src',
             viewLink: 'https://aliaksandr-batskalevich.github.io/3-react-samurai-way',
             tools: ["HTML", "CSS", "TypeScript", "React", "Redux", "TDD", "REST-API", "Redux-Form"],
-            averageRating: 4.5,
+            rating: {
+                averageRating: 4.5,
+                currentRating: null,
+                dateCurrentRatingAdd: null,
+            },
+            comments: '',
         },
         {
             id: v1(),
@@ -53,7 +91,12 @@ const projectsInitState: projectsStateType = {
             codeLink: 'https://github.com/aliaksandr-batskalevich/3-react-samurai-way/tree/master/src',
             viewLink: 'https://aliaksandr-batskalevich.github.io/3-react-samurai-way',
             tools: ["HTML", "CSS", "TypeScript", "React", "Redux", "TDD", "REST-API", "Redux-Form", "MUI"],
-            averageRating: 4,
+            rating: {
+                averageRating: 4,
+                currentRating: null,
+                dateCurrentRatingAdd: null,
+            },
+            comments: '',
         },
         {
             id: v1(),
@@ -63,7 +106,12 @@ const projectsInitState: projectsStateType = {
             codeLink: 'https://github.com/aliaksandr-batskalevich/portfolio2022/tree/main/src',
             viewLink: 'https://aliaksandr-batskalevich.github.io/portfolio2022',
             tools: ["HTML", "SCSS", "TypeScript", "React", "Redux", "TDD", "REST-API", "Redux-Form", "StoryBook", 'Reselect'],
-            averageRating: 4.2,
+            rating: {
+                averageRating: 4.2,
+                currentRating: null,
+                dateCurrentRatingAdd: null,
+            },
+            comments: '',
         },
         {
             id: v1(),
@@ -73,7 +121,12 @@ const projectsInitState: projectsStateType = {
             codeLink: 'https://github.com/aliaksandr-batskalevich/3-react-ignatTasks/tree/master/src',
             viewLink: 'https://aliaksandr-batskalevich.github.io/3-react-ignatTasks',
             tools: ["HTML", "CSS", "TypeScript", "React", "Redux", "TDD", "REST-API"],
-            averageRating: 3.7,
+            rating: {
+                averageRating: 4.2,
+                currentRating: null,
+                dateCurrentRatingAdd: null,
+            },
+            comments: '',
         },
         {
             id: v1(),
@@ -83,7 +136,12 @@ const projectsInitState: projectsStateType = {
             codeLink: 'https://github.com/aliaksandr-batskalevich/jsForChildren-snakeGame',
             viewLink: 'https://aliaksandr-batskalevich.github.io/jsForChildren-snakeGame',
             tools: ["HTML", "CSS", "JavaScript"],
-            averageRating: 5,
+            rating: {
+                averageRating: 4.2,
+                currentRating: null,
+                dateCurrentRatingAdd: null,
+            },
+            comments: '',
         },
         {
             id: v1(),
@@ -93,24 +151,103 @@ const projectsInitState: projectsStateType = {
             codeLink: 'https://github.com/aliaksandr-batskalevich/htmlFinalProject',
             viewLink: 'https://aliaksandr-batskalevich.github.io/htmlFinalProject',
             tools: ["HTML", "CSS"],
-            averageRating: 4.1,
+            rating: {
+                averageRating: 4.2,
+                currentRating: null,
+                dateCurrentRatingAdd: null,
+            },
+            comments: '',
         },
     ],
-    currentProjectRating: {},
+    feedbackPreview: clearFeedbackPreview,
 };
 
-export const projectsReducer = (state: projectsStateType = projectsInitState, action: ActionsType) => {
+export const projectsReducer = (state: ProjectsStateType = projectsInitState, action: ActionsType): ProjectsStateType => {
     switch (action.type) {
+        case 'SET_PROJECT_TO_FORM_RATING': {
+            return {
+                ...state,
+                myProjects: state.myProjects.map(pr => pr.id === action.payload.id ? {
+                    ...pr,
+                    rating: {
+                        ...pr.rating,
+                        currentRating: 0,
+                        dateCurrentRatingAdd: pr.rating.dateCurrentRatingAdd ? pr.rating.dateCurrentRatingAdd : new Date()
+                    }
+                } : pr)
+            };
+        }
         case 'ADD_CURRENT_PROJECT_RATING':
-            return {...state, currentProjectRating: {...state.currentProjectRating, [action.payload.id]: action.payload.currentRating}};
+            return {
+                ...state, myProjects: state.myProjects.map(pr => pr.id === action.payload.id
+                    ? {
+                        ...pr,
+                        rating: {
+                            ...pr.rating,
+                            currentRating: action.payload.currentRating,
+                            dateCurrentRatingAdd: pr.rating.dateCurrentRatingAdd ? pr.rating.dateCurrentRatingAdd : new Date()
+                        }
+                    }
+                    : pr)
+            };
+        case 'REMOVE_CURRENT_PROJECT_RATING':
+            return {
+                ...state,
+                myProjects: state.myProjects.map(pr => pr.id === action.payload.id ? {
+                    ...pr,
+                    comments: '',
+                    rating: {...pr.rating, currentRating: null, dateCurrentRatingAdd: null}
+                } : pr)
+            };
+        case 'CHANGE_PROJECT_COMMENTS':
+            return {
+                ...state,
+                myProjects: state.myProjects.map(pr => pr.id === action.payload.id ? {
+                    ...pr,
+                    comments: action.payload.comments
+                } : pr)
+            };
+        case 'SET_FEEDBACK_PREVIEW':
+            return {...state, ...action.payload};
+        case 'SET_CLEAR_FEEDBACK_PREVIEW':
+            return {...state, feedbackPreview: clearFeedbackPreview};
         default:
             return state;
     }
 };
 
-export const addCurrentProjectRating = (id: string, currentRating: number) => {
+export const setProjectToFormRating = (id: string) => {
+    return {
+        type: 'SET_PROJECT_TO_FORM_RATING',
+        payload: {id}
+    } as const;
+};
+export const changeCurrentProjectRating = (id: string, currentRating: RatingType) => {
     return {
         type: 'ADD_CURRENT_PROJECT_RATING',
         payload: {id, currentRating},
+    } as const;
+};
+export const removeCurrentProjectRating = (id: string) => {
+    return {
+        type: 'REMOVE_CURRENT_PROJECT_RATING',
+        payload: {id}
+    } as const;
+};
+export const changeProjectComments = (id: string, comments: string) => {
+    return {
+        type: 'CHANGE_PROJECT_COMMENTS',
+        payload: {id, comments}
+    } as const;
+};
+export const setFeedbackPreview = (feedbackPreview: FeedbackPreviewType) => {
+    return {
+        type: 'SET_FEEDBACK_PREVIEW',
+        payload: {feedbackPreview}
+    } as const;
+};
+export const setClearFeedbackPreview = () => {
+    return {
+        type: 'SET_CLEAR_FEEDBACK_PREVIEW'
     } as const;
 };

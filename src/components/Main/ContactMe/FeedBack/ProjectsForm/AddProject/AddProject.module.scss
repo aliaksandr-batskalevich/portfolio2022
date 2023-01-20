@@ -1,0 +1,22 @@
+.addProjectWrapper {
+  margin-top: 10px;
+  > :not(:first-child) {
+    margin-left: 10px;
+  }
+
+  select {
+
+    option {
+      color: black;
+    }
+  }
+  .addProjectRatingButton {
+    padding: 0 5px;
+    color: green;
+
+    &::before {
+      content: '✓';
+      font-weight: bold;
+    }
+  }
+}

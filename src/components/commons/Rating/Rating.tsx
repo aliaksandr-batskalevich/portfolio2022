@@ -1,16 +1,17 @@
 import React, {ChangeEvent, useState, MouseEvent} from 'react';
 import s from './Rating.module.scss';
+import {RatingType} from "../../../bll/projectsReducer";
 
 type RatingPropsType = {
+    isForm: boolean
     name: string
     averageRating: number
     currentRating: null | number
 
-    setCurrentRating: (newRating: number) => void
+    changeCurrentRating: (newRating: RatingType) => void
 }
 
-export const Rating: React.FC<RatingPropsType> = ({name, averageRating, currentRating, setCurrentRating}) => {
-
+export const Rating: React.FC<RatingPropsType> = ({isForm, name, averageRating, currentRating, changeCurrentRating}) => {
 
     const [preRating, setPreRating] = useState<null | number>(null);
 
@@ -22,12 +23,19 @@ export const Rating: React.FC<RatingPropsType> = ({name, averageRating, currentR
     };
 
     const setRatingHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        let newRating = +event.currentTarget.value;
-        setCurrentRating(newRating);
+        let newRating = +event.currentTarget.value as RatingType;
+        changeCurrentRating(newRating);
     };
 
+
+    let valueToRender = isForm
+        ? (preRating ?? currentRating ?? averageRating)
+        : (currentRating ? currentRating : averageRating);
     let activeStyle = {
-        width: `${(preRating ?? currentRating ?? averageRating) * 20}%`
+        width: `${( isForm 
+            ? valueToRender 
+            : (preRating ? preRating : currentRating ? currentRating : averageRating)
+        ) * 20}%`
     };
 
     let starsToRender = [1, 2, 3, 4, 5].map(el => {
@@ -37,8 +45,8 @@ export const Rating: React.FC<RatingPropsType> = ({name, averageRating, currentR
                 type="radio"
                 name={name}
                 value={el}
+                checked={el === currentRating}
                 className={s.ratingRadio}
-
                 onMouseEnter={setPreRatingHandler}
                 onMouseLeave={onMouseLeaveHandler}
                 onChange={setRatingHandler}
@@ -47,14 +55,14 @@ export const Rating: React.FC<RatingPropsType> = ({name, averageRating, currentR
     });
 
     return (
-            <div className={s.rating}>
-                <div className={s.ratingBody}>
-                    <div className={s.ratingActive} style={activeStyle}/>
-                    <div className={s.ratingItems}>
-                        {starsToRender}
-                    </div>
+        <div className={s.rating}>
+            <div className={s.ratingBody}>
+                <div className={s.ratingActive} style={activeStyle}/>
+                <div className={s.ratingItems}>
+                    {starsToRender}
                 </div>
-                <div className={s.ratingValue}>{currentRating ?? averageRating}</div>
             </div>
+            <div className={s.ratingValue}>{valueToRender}</div>
+        </div>
     );
 };

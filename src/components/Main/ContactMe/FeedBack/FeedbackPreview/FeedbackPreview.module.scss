@@ -1,0 +1,10 @@
+@import "/src/definitions";
+
+.feedbackPreviewWrapper {
+  width: 70%;
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+}

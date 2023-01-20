@@ -1,19 +1,18 @@
 import React, {MouseEvent, useEffect, useRef} from "react";
 import s from './Project.module.scss';
 import {Rating} from "../../../commons/Rating/Rating";
-import {ProjectType} from "../../../../bll/projectsReducer";
+import {ProjectType, RatingType} from "../../../../bll/projectsReducer";
 import {getTimeToProjectMenuOpenCloseSec} from "../../../../bll/selectors";
 import {useSelector} from "react-redux";
 
 type ProjectPropsType = {
     projectState: null | string
     project: ProjectType
-    currentRating: null | number
     isColorActive: boolean
     timeToRenderSec: number
 
     setProjectState: (state: null | string) => void
-    setCurrentRating: (name: string, newRating: number) => void
+    setCurrentRating: (id: string, currentRating: RatingType) => void
 }
 type ContextMenuComponentPropsType = {
     isMenuOpen: boolean
@@ -21,7 +20,7 @@ type ContextMenuComponentPropsType = {
     viewLink: string
 }
 
-export const Project: React.FC<ProjectPropsType> = ({projectState, project, setProjectState, currentRating, setCurrentRating, isColorActive, timeToRenderSec}) => {
+export const Project: React.FC<ProjectPropsType> = ({projectState, project, setProjectState, isColorActive, timeToRenderSec, setCurrentRating}) => {
 
     // code for MENU open/close
     const isMenuOpen = projectState === project.id
@@ -58,7 +57,8 @@ export const Project: React.FC<ProjectPropsType> = ({projectState, project, setP
 
     const contentClassName = isMenuOpen ? `${s.isOpenContextMenu} ${s.contentWrapper}` : s.contentWrapper;
 
-    const setCurrentRatingHAndler = (newRating: number) => {
+
+    const setCurrentRatingHandler = (newRating: RatingType) => {
         setCurrentRating(project.id, newRating);
     };
 
@@ -74,12 +74,15 @@ export const Project: React.FC<ProjectPropsType> = ({projectState, project, setP
                     src={project.image}
                     alt="projectLogo"
                 />
-                {!isMenuOpen && <Rating
+                {!isMenuOpen && <div className={s.ratingWrapper}>
+                    <Rating
+                    isForm={false}
                     name={project.title}
-                    averageRating={project.averageRating}
-                    currentRating={currentRating}
-                    setCurrentRating={setCurrentRatingHAndler}
-                />}
+                    averageRating={project.rating.averageRating}
+                    currentRating={project.rating.currentRating}
+                    changeCurrentRating={setCurrentRatingHandler}
+                />
+                </div>}
                 <p className={s.descriptions}>{project.description}</p>
                 <ContextMenuComponent
                     isMenuOpen={isMenuOpen}
