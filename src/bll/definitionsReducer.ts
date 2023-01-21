@@ -8,6 +8,11 @@ export type DefinitionsActionsType = ReturnType<typeof setCurrentProjectFilter>
 
 export type ProjectFilterType = 'ALL' | ToolType;
 export type FeedbackModeType = 'form' | 'preview'
+export type EmailJSKeysType = {
+    SERVICE_ID: string
+    TEMPLATE_ID: string
+    PUBLIC_KEY: string
+}
 export type DefinitionsStateType = {
     followMeNetworks: Array<string>
     currentProjectFilter: ProjectFilterType
@@ -15,6 +20,7 @@ export type DefinitionsStateType = {
     timeToProjectMenuOpenCloseSec: number
     feedbackMode: FeedbackModeType
     feedbackPreview: string
+    emailJSKeys: EmailJSKeysType
 };
 
 
@@ -25,6 +31,11 @@ const definitionsInitState: DefinitionsStateType = {
     timeToProjectMenuOpenCloseSec: 1,
     feedbackMode: "form",
     feedbackPreview: '',
+    emailJSKeys: {
+        SERVICE_ID: 'service_ml168on',
+        TEMPLATE_ID: 'feedback_on_my_resume',
+        PUBLIC_KEY: 'HvXpvzrDDZoVDJQG4',
+    }
 };
 
 export const definitionsReducer = (state: DefinitionsStateType = definitionsInitState, action: ActionsType) => {

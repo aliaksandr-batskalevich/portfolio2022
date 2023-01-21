@@ -1,12 +1,13 @@
-import React, {useEffect, MouseEvent} from 'react';
+import React, {useEffect} from 'react';
+import emailjs from '@emailjs/browser';
 import s from "./FeedbackForm.module.scss";
 import {ProjectsForm} from "../ProjectsForm/ProjectsForm";
 import {useSelector} from "react-redux";
-import {getMyProjectsInRatingType} from "../../../../../bll/selectors";
+import {getEmailJSKeys, getMyProjectsInRatingType} from "../../../../../bll/selectors";
 import {useFormik} from "formik";
 import {useAppDispatch} from "../../../../../utilites/customHooks";
 import {setFeedbackMode, setFeedbackPreview} from "../../../../../bll/definitionsReducer";
-import {feedbackDataForPreviewConverter} from "../../../../../utilites/utilitesFunctions";
+import {feedbackDataConverter} from "../../../../../utilites/utilitesFunctions";
 import {clearCurrentRatingsAndComments} from "../../../../../bll/projectsReducer";
 
 export type FeedbackDataType = {
@@ -21,6 +22,21 @@ export const FeedbackForm = () => {
 
     const dispatch = useAppDispatch();
     let myProjectsInRatingType = useSelector(getMyProjectsInRatingType);
+    let {TEMPLATE_ID, SERVICE_ID, PUBLIC_KEY} = useSelector(getEmailJSKeys);
+
+    // async code. Using emailJS sender.
+    const sendFeedbackByEmailJS = (values: FeedbackDataType) => {
+
+        let textForEmailJS = feedbackDataConverter("emailJS", values);
+
+        emailjs.send(SERVICE_ID, TEMPLATE_ID, {...values, text: textForEmailJS}, PUBLIC_KEY)
+            .then(response => {
+                alert(JSON.stringify(response));
+            })
+            .catch(error => {
+                alert(JSON.stringify(error));
+            });
+    };
 
     // FORMIK
     let ratingForFormik = {};
@@ -36,11 +52,9 @@ export const FeedbackForm = () => {
         validate(values) {
 
         },
-        initialErrors: {
-
-        },
         onSubmit(values) {
-            alert(JSON.stringify(values));
+            sendFeedbackByEmailJS(values);
+            resetForm();
         },
     });
 
@@ -57,12 +71,12 @@ export const FeedbackForm = () => {
     }, [myProjectsInRatingType]);
 
     const setPreviewHandler = () => {
-        let feedbackPreviewInString = feedbackDataForPreviewConverter(formik.values);
+        let feedbackPreviewInString = feedbackDataConverter("preview", formik.values);
         dispatch(setFeedbackPreview(feedbackPreviewInString));
         dispatch(setFeedbackMode('preview'));
     };
-    const clearForm = (event: MouseEvent<HTMLButtonElement>) => {
-        formik.handleReset(event);
+    const resetForm = () => {
+        formik.resetForm();
         dispatch(clearCurrentRatingsAndComments());
     };
 
@@ -104,8 +118,8 @@ export const FeedbackForm = () => {
                 <ProjectsForm/>
                 <div className={s.buttonsWrapper}>
                     <button className={s.previewButton} type={'button'} onClick={setPreviewHandler}>Preview</button>
-                    <button className={s.submitButton} type='submit' >Submit</button>
-                    <button className={s.submitButton} type='reset' onClick={clearForm}>Clear</button>
+                    <button className={s.submitButton} type='submit'>Submit</button>
+                    <button className={s.submitButton} type='reset' onClick={resetForm}>Clear</button>
                 </div>
             </form>
         </div>

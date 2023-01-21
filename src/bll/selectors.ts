@@ -4,7 +4,7 @@ import {MyQuoteType, SkillType} from "./aboutMeReducer";
 import {ContactsPatternType, LinksType, MyContactsType} from "./contactsReducer";
 import {createSelector} from "reselect";
 import {ProjectToRatingType, ProjectType} from "./projectsReducer";
-import {FeedbackModeType, ProjectFilterType} from "./definitionsReducer";
+import {EmailJSKeysType, FeedbackModeType, ProjectFilterType} from "./definitionsReducer";
 import {CodeWarsDataType} from "./challengeReducer";
 import {ResumeStateType} from "./resumeReduucer";
 
@@ -15,6 +15,7 @@ export const getTimeToProjectsColorEffectSec = (state: RootAppStateType): number
 export const getTimeToProjectMenuOpenCloseSec = (state: RootAppStateType): number => state.definitions.timeToProjectMenuOpenCloseSec;
 export const getFeedbackMode = (state: RootAppStateType): FeedbackModeType => state.definitions.feedbackMode;
 export const getFeedbackPreview = (state: RootAppStateType): string => state.definitions.feedbackPreview;
+export const getEmailJSKeys = (state: RootAppStateType): EmailJSKeysType => state.definitions.emailJSKeys;
 
 
 // generalInfo
