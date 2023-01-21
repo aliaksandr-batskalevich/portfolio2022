@@ -1,15 +1,14 @@
 import React from 'react';
 import s from './FeedbackPreview.module.scss';
 import {useSelector} from "react-redux";
-import {getFeedbackPreviewData} from "../../../../../bll/selectors";
 import {useAppDispatch} from "../../../../../utilites/customHooks";
-import {setFeedbackMode} from "../../../../../bll/definitionsReducer";
-import {setClearFeedbackPreview} from "../../../../../bll/projectsReducer";
+import {setClearFeedbackPreview, setFeedbackMode} from "../../../../../bll/definitionsReducer";
+import {getFeedbackPreview} from "../../../../../bll/selectors";
 
 export const FeedbackPreview = () => {
 
     const dispatch = useAppDispatch();
-    let feedbackPreviewData = useSelector(getFeedbackPreviewData);
+    let feedbackPreview = useSelector(getFeedbackPreview);
 
     const closeFeedbackPreview = () => {
         dispatch(setFeedbackMode('form'));
@@ -18,10 +17,11 @@ export const FeedbackPreview = () => {
 
     return (
         <div className={s.feedbackPreviewWrapper}>
-            {JSON.stringify(feedbackPreviewData)}
-            <div className={s.closeButtonWrapper}>
-                <button className={s.closeButton} onClick={closeFeedbackPreview}>Close</button>
+            <div className={s.feedbackPreviewContentWrapper}>
+                <div className={s.closeButton} onClick={closeFeedbackPreview}/>
+                <span>{feedbackPreview}</span>
             </div>
+
         </div>
     );
 };

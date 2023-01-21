@@ -1,10 +1,40 @@
 @import "/src/definitions";
 
 .feedbackPreviewWrapper {
+  padding: 30px 15px;
   width: 70%;
+  //min-height: 70%;
   position: absolute;
-  top: -20px;
+  top: 30%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, 0);
   background-color: white;
+
+  .feedbackPreviewContentWrapper {
+    position: relative;
+    width: 100%;
+
+    span {
+      color: black;
+      white-space: pre-wrap
+    }
+
+    .closeButton {
+      position: absolute;
+      top: -22px;
+      right: 0;
+      color: $red-color;
+      font-weight: bold;
+      cursor: pointer;
+
+      &::after {
+        content: '✗';
+      }
+
+      &:hover {
+
+        transform: scale(1.2);
+      }
+    }
+  }
 }

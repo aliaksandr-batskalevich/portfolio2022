@@ -5,8 +5,7 @@ export type ProjectsActionsType = ReturnType<typeof changeCurrentProjectRating>
     | ReturnType<typeof removeCurrentProjectRating>
     | ReturnType<typeof setProjectToFormRating>
     | ReturnType<typeof changeProjectComments>
-    | ReturnType<typeof setFeedbackPreview>
-    | ReturnType<typeof setClearFeedbackPreview>
+    | ReturnType<typeof clearCurrentRatingsAndComments>;
 
 export type ToolType =
     'HTML'
@@ -20,6 +19,8 @@ export type ToolType =
     | 'TDD'
     | 'StoryBook'
     | 'Redux-Form'
+    | 'Formik'
+    | 'EmailJS'
     | 'MUI'
     | 'Reselect';
 export type RatingType = 0 | 1 | 2 | 3 | 4 | 5;
@@ -45,25 +46,9 @@ export type ProjectToRatingType = {
     rating: RatingStateType
     comments: string
 };
-export type FeedbackPreviewType = {
-    name: string
-    email: string
-    text: string
-    rating: Record<string, string>
-    comments: Record<string, string>
-};
 
 export type ProjectsStateType = {
     myProjects: Array<ProjectType>
-    feedbackPreview: FeedbackPreviewType
-};
-
-const clearFeedbackPreview: FeedbackPreviewType = {
-    name: '',
-    email: '',
-    text: '',
-    rating: {},
-    comments: {},
 };
 
 const projectsInitState: ProjectsStateType = {
@@ -105,7 +90,7 @@ const projectsInitState: ProjectsStateType = {
             description: 'The project does not use third-party libraries for visual effects. All components are written using native JavaScript.',
             codeLink: 'https://github.com/aliaksandr-batskalevich/portfolio2022/tree/main/src',
             viewLink: 'https://aliaksandr-batskalevich.github.io/portfolio2022',
-            tools: ["HTML", "SCSS", "TypeScript", "React", "Redux", "TDD", "REST-API", "Redux-Form", "StoryBook", 'Reselect'],
+            tools: ["HTML", "SCSS", "TypeScript", "React", "Redux", "TDD", "REST-API", "Formik", "StoryBook", 'Reselect', 'EmailJS'],
             rating: {
                 averageRating: 4.2,
                 currentRating: null,
@@ -159,7 +144,6 @@ const projectsInitState: ProjectsStateType = {
             comments: '',
         },
     ],
-    feedbackPreview: clearFeedbackPreview,
 };
 
 export const projectsReducer = (state: ProjectsStateType = projectsInitState, action: ActionsType): ProjectsStateType => {
@@ -207,10 +191,8 @@ export const projectsReducer = (state: ProjectsStateType = projectsInitState, ac
                     comments: action.payload.comments
                 } : pr)
             };
-        case 'SET_FEEDBACK_PREVIEW':
-            return {...state, ...action.payload};
-        case 'SET_CLEAR_FEEDBACK_PREVIEW':
-            return {...state, feedbackPreview: clearFeedbackPreview};
+        case 'CLEAR_CURRENT_RATINGS_AND_COMMENTS':
+            return {...state, myProjects: state.myProjects.map(pr => ({...pr, comments: '', rating: {...pr.rating, currentRating: null, dateCurrentRatingAdd: null}}) )};
         default:
             return state;
     }
@@ -240,14 +222,8 @@ export const changeProjectComments = (id: string, comments: string) => {
         payload: {id, comments}
     } as const;
 };
-export const setFeedbackPreview = (feedbackPreview: FeedbackPreviewType) => {
+export const clearCurrentRatingsAndComments = () => {
     return {
-        type: 'SET_FEEDBACK_PREVIEW',
-        payload: {feedbackPreview}
-    } as const;
-};
-export const setClearFeedbackPreview = () => {
-    return {
-        type: 'SET_CLEAR_FEEDBACK_PREVIEW'
+        type: 'CLEAR_CURRENT_RATINGS_AND_COMMENTS'
     } as const;
 };

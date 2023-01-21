@@ -2,7 +2,9 @@ import {ActionsType} from "./store";
 import {ToolType} from "./projectsReducer";
 
 export type DefinitionsActionsType = ReturnType<typeof setCurrentProjectFilter>
-    | ReturnType<typeof setFeedbackMode>;
+    | ReturnType<typeof setFeedbackMode>
+    | ReturnType<typeof setFeedbackPreview>
+    | ReturnType<typeof setClearFeedbackPreview>;
 
 export type ProjectFilterType = 'ALL' | ToolType;
 export type FeedbackModeType = 'form' | 'preview'
@@ -12,15 +14,17 @@ export type DefinitionsStateType = {
     timeToProjectsColorEffectSec: number
     timeToProjectMenuOpenCloseSec: number
     feedbackMode: FeedbackModeType
+    feedbackPreview: string
 };
 
 
 const definitionsInitState: DefinitionsStateType = {
-    followMeNetworks: [ 'linkedIn', 'gitHub', 'codeWars'],
+    followMeNetworks: ['linkedIn', 'gitHub', 'codeWars'],
     currentProjectFilter: 'ALL',
     timeToProjectsColorEffectSec: 3,
     timeToProjectMenuOpenCloseSec: 1,
     feedbackMode: "form",
+    feedbackPreview: '',
 };
 
 export const definitionsReducer = (state: DefinitionsStateType = definitionsInitState, action: ActionsType) => {
@@ -29,6 +33,10 @@ export const definitionsReducer = (state: DefinitionsStateType = definitionsInit
             return {...state, ...action.payload};
         case 'SET_FEEDBACK_MODE':
             return {...state, ...action.payload};
+        case 'SET_FEEDBACK_PREVIEW':
+            return {...state, ...action.payload};
+        case 'SET_CLEAR_FEEDBACK_PREVIEW':
+            return {...state, feedbackPreview: ''};
         default:
             return state;
     }
@@ -44,5 +52,16 @@ export const setFeedbackMode = (feedbackMode: FeedbackModeType) => {
     return {
         type: 'SET_FEEDBACK_MODE',
         payload: {feedbackMode}
+    } as const;
+};
+export const setFeedbackPreview = (feedbackPreview: string) => {
+    return {
+        type: 'SET_FEEDBACK_PREVIEW',
+        payload: {feedbackPreview},
+    } as const;
+};
+export const setClearFeedbackPreview = () => {
+    return {
+        type: 'SET_CLEAR_FEEDBACK_PREVIEW'
     } as const;
 };

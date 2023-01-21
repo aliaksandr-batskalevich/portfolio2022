@@ -1,12 +1,21 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, MouseEvent} from 'react';
 import s from "./FeedbackForm.module.scss";
 import {ProjectsForm} from "../ProjectsForm/ProjectsForm";
 import {useSelector} from "react-redux";
 import {getMyProjectsInRatingType} from "../../../../../bll/selectors";
 import {useFormik} from "formik";
-import {FeedbackPreviewType, setFeedbackPreview} from "../../../../../bll/projectsReducer";
 import {useAppDispatch} from "../../../../../utilites/customHooks";
-import {setFeedbackMode} from "../../../../../bll/definitionsReducer";
+import {setFeedbackMode, setFeedbackPreview} from "../../../../../bll/definitionsReducer";
+import {feedbackDataForPreviewConverter} from "../../../../../utilites/utilitesFunctions";
+import {clearCurrentRatingsAndComments} from "../../../../../bll/projectsReducer";
+
+export type FeedbackDataType = {
+    name: string
+    email: string
+    text: string
+    rating: Record<string, string>
+    comments: Record<string, string>
+};
 
 export const FeedbackForm = () => {
 
@@ -23,14 +32,20 @@ export const FeedbackForm = () => {
             text: '',
             rating: ratingForFormik,
             comments: projectsComments,
-        } as FeedbackPreviewType,
+        } as FeedbackDataType,
+        validate(values) {
+
+        },
+        initialErrors: {
+
+        },
         onSubmit(values) {
             alert(JSON.stringify(values));
-        }
+        },
     });
 
-    // function for update Rating&CommentsData in FORMIK
-    const ratingFormikUpdateHandler = () => {
+    // eseEffect to update Rating&CommentsData in FORMIK
+    useEffect(() => {
         formik.values.rating = {};
         formik.values.comments = {};
         myProjectsInRatingType.forEach(pr => {
@@ -39,16 +54,16 @@ export const FeedbackForm = () => {
                 formik.values.comments[pr.title] = pr.comments;
             }
         });
-    };
-
-    // eseEffect to update Rating&CommentsData in FORMIK
-    useEffect(() => {
-        ratingFormikUpdateHandler();
     }, [myProjectsInRatingType]);
 
-    const previewHandler = () => {
-        dispatch(setFeedbackPreview(formik.values));
+    const setPreviewHandler = () => {
+        let feedbackPreviewInString = feedbackDataForPreviewConverter(formik.values);
+        dispatch(setFeedbackPreview(feedbackPreviewInString));
         dispatch(setFeedbackMode('preview'));
+    };
+    const clearForm = (event: MouseEvent<HTMLButtonElement>) => {
+        formik.handleReset(event);
+        dispatch(clearCurrentRatingsAndComments());
     };
 
     return (
@@ -87,14 +102,13 @@ export const FeedbackForm = () => {
                             />
                 </div>
                 <ProjectsForm/>
-                <div className={s.separator}/>
-                <div className={s.submitButtonWrapper}>
-                    <button className={s.submitButton} type='submit'>Submit</button>
+                <div className={s.buttonsWrapper}>
+                    <button className={s.previewButton} type={'button'} onClick={setPreviewHandler}>Preview</button>
+                    <button className={s.submitButton} type='submit' >Submit</button>
+                    <button className={s.submitButton} type='reset' onClick={clearForm}>Clear</button>
                 </div>
             </form>
-            <div className={s.previewButtonWrapper}>
-                <button className={s.previewButton} onClick={previewHandler}>Preview</button>
-            </div>
         </div>
     );
 };
+

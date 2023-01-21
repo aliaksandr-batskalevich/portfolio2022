@@ -11,7 +11,11 @@ export const FeedBack = () => {
     let feedbackMode = useSelector(getFeedbackMode);
 
     let feedbackStyleOnPreview = feedbackMode === "preview"
-        ? {filter: 'blur(10px)', pointerEvents: 'none' as const, transitionDuration: '1s'}
+        ? {
+            filter: 'blur(10px)',
+            pointerEvents: 'none' as const,
+            transitionDuration: '1s',
+        }
         : undefined;
 
     return (

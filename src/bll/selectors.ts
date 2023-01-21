@@ -3,7 +3,7 @@ import {GeneralInfoStateType} from "./generalInfoReducer";
 import {MyQuoteType, SkillType} from "./aboutMeReducer";
 import {ContactsPatternType, LinksType, MyContactsType} from "./contactsReducer";
 import {createSelector} from "reselect";
-import {FeedbackPreviewType, ProjectToRatingType, ProjectType} from "./projectsReducer";
+import {ProjectToRatingType, ProjectType} from "./projectsReducer";
 import {FeedbackModeType, ProjectFilterType} from "./definitionsReducer";
 import {CodeWarsDataType} from "./challengeReducer";
 import {ResumeStateType} from "./resumeReduucer";
@@ -14,6 +14,7 @@ export const getCurrentProjectFilter = (state: RootAppStateType): ProjectFilterT
 export const getTimeToProjectsColorEffectSec = (state: RootAppStateType): number => state.definitions.timeToProjectsColorEffectSec;
 export const getTimeToProjectMenuOpenCloseSec = (state: RootAppStateType): number => state.definitions.timeToProjectMenuOpenCloseSec;
 export const getFeedbackMode = (state: RootAppStateType): FeedbackModeType => state.definitions.feedbackMode;
+export const getFeedbackPreview = (state: RootAppStateType): string => state.definitions.feedbackPreview;
 
 
 // generalInfo
@@ -66,10 +67,6 @@ export const getProjectsTitlesForRatingSelectSort = createSelector(getMyProjects
     .filter(pr => !projectsToRating.some(rp => rp.id === pr.id))
     .map(pr => pr.title)
     .sort());
-
-// feedbackPreview
-export const getFeedbackPreviewData = (state: RootAppStateType): FeedbackPreviewType => state.projects.feedbackPreview;
-
 
 // challenge
 export const getChallengeDescriptions = (state: RootAppStateType): string => state.challenge.descriptions;
