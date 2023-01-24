@@ -5,7 +5,8 @@ export type ProjectsActionsType = ReturnType<typeof changeCurrentProjectRating>
     | ReturnType<typeof removeCurrentProjectRating>
     | ReturnType<typeof setProjectToFormRating>
     | ReturnType<typeof changeProjectComments>
-    | ReturnType<typeof clearCurrentRatingsAndComments>;
+    | ReturnType<typeof clearCurrentRatingsAndComments>
+    | ReturnType<typeof setCurrentRatingsAndCommentsFromLS>;
 
 export type ToolType =
     'HTML'
@@ -192,7 +193,19 @@ export const projectsReducer = (state: ProjectsStateType = projectsInitState, ac
                 } : pr)
             };
         case 'CLEAR_CURRENT_RATINGS_AND_COMMENTS':
-            return {...state, myProjects: state.myProjects.map(pr => ({...pr, comments: '', rating: {...pr.rating, currentRating: null, dateCurrentRatingAdd: null}}) )};
+            return {
+                ...state,
+                myProjects: state.myProjects.map(pr => ({
+                    ...pr,
+                    comments: '',
+                    rating: {...pr.rating, currentRating: null, dateCurrentRatingAdd: null}
+                }))
+            };
+        case 'SET_CURRENT_RATING_AND_COMMENTS_FROM_LS':
+            return {...state,
+                myProjects: state.myProjects.map(pr => action.payload.rating[pr.title]
+                    ? {...pr, rating: {...pr.rating, currentRating: Number(action.payload.rating[pr.title]) as RatingType}, comments: action.payload.comments[pr.title]}
+                    : pr)}
         default:
             return state;
     }
@@ -225,5 +238,12 @@ export const changeProjectComments = (id: string, comments: string) => {
 export const clearCurrentRatingsAndComments = () => {
     return {
         type: 'CLEAR_CURRENT_RATINGS_AND_COMMENTS'
+    } as const;
+};
+export const setCurrentRatingsAndCommentsFromLS = (rating: Record<string, string>,
+                                                   comments: Record<string, string>) => {
+    return {
+        type: 'SET_CURRENT_RATING_AND_COMMENTS_FROM_LS',
+        payload: {rating, comments},
     } as const;
 };

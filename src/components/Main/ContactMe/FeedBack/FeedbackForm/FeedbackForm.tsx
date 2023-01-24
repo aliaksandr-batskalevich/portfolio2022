@@ -5,10 +5,10 @@ import {ProjectsForm} from "../ProjectsForm/ProjectsForm";
 import {useSelector} from "react-redux";
 import {getEmailJSKeys, getMyProjectsInRatingType} from "../../../../../bll/selectors";
 import {useFormik} from "formik";
-import {useAppDispatch} from "../../../../../utilites/customHooks";
+import {useAppDispatch, useLocalStorage} from "../../../../../utilites/customHooks";
 import {setFeedbackMode, setFeedbackPreview} from "../../../../../bll/definitionsReducer";
 import {feedbackDataConverter} from "../../../../../utilites/utilitesFunctions";
-import {clearCurrentRatingsAndComments} from "../../../../../bll/projectsReducer";
+import {clearCurrentRatingsAndComments, setCurrentRatingsAndCommentsFromLS} from "../../../../../bll/projectsReducer";
 
 export type FeedbackDataType = {
     name: string
@@ -17,12 +17,23 @@ export type FeedbackDataType = {
     rating: Record<string, string>
     comments: Record<string, string>
 };
+export type FeedbackInLocalStorageDataType = Omit<FeedbackDataType, 'rating' | 'comments'>
+type ProjectsRatingAndCommentsLSType = {rating: Record<string, string>, comments: Record<string, string>};
 
 export const FeedbackForm = () => {
 
     const dispatch = useAppDispatch();
     let myProjectsInRatingType = useSelector(getMyProjectsInRatingType);
     let {TEMPLATE_ID, SERVICE_ID, PUBLIC_KEY} = useSelector(getEmailJSKeys);
+
+    // useEffect for update projects currentRating and comments from local storage
+    useEffect(() => {
+        let projectsRatingAndCommentsFromLS = localStorage.getItem('projects-rating-and-comments');
+        if (projectsRatingAndCommentsFromLS) {
+            let {rating, comments} = JSON.parse(projectsRatingAndCommentsFromLS) as ProjectsRatingAndCommentsLSType;
+            dispatch(setCurrentRatingsAndCommentsFromLS(rating, comments));
+        }
+    }, []);
 
     // async code. Using emailJS sender.
     const sendFeedbackByEmailJS = (values: FeedbackDataType) => {
@@ -38,14 +49,20 @@ export const FeedbackForm = () => {
             });
     };
 
+
     // FORMIK
+
+    // code for save formikData (name, email, text) in LocalStorage
+    // - create custom hook useLocalStorage
+    let freshFormikValues = {name: '', email: '', text: ''} as FeedbackInLocalStorageDataType;
+    const [initialFormikValues, setInitialFormikValues] = useLocalStorage('feedback-local-storage-data', freshFormikValues);
+
+
     let ratingForFormik = {};
     let projectsComments = {};
     let formik = useFormik({
         initialValues: {
-            name: '',
-            email: '',
-            text: '',
+            ...initialFormikValues,
             rating: ratingForFormik,
             comments: projectsComments,
         } as FeedbackDataType,
@@ -58,17 +75,34 @@ export const FeedbackForm = () => {
         },
     });
 
-    // eseEffect to update Rating&CommentsData in FORMIK
+
+    // useEffect for update formik data (name, email, text) from local storage
+    // does not contain project data, they are saved separately
     useEffect(() => {
-        formik.values.rating = {};
-        formik.values.comments = {};
+        let {name, email, text} = formik.values;
+        setInitialFormikValues({name, email, text} as FeedbackInLocalStorageDataType);
+    }, [setInitialFormikValues, formik.values.name, formik.values.email, formik.values.text]);
+
+    // useEffect to update Rating&CommentsData in FORMIK and save data in local storage
+    useEffect(() => {
+        let rating = {} as Record<string, string>;
+        let comments = {} as Record<string, string>;
         myProjectsInRatingType.forEach(pr => {
             if (pr.rating.currentRating !== null) {
-                formik.values.rating[pr.title] = String(pr.rating.currentRating);
-                formik.values.comments[pr.title] = pr.comments;
+                rating[pr.title] = String(pr.rating.currentRating);
+                comments[pr.title] = pr.comments;
             }
         });
+
+        // update data in formik
+        formik.setValues({...formik.values, rating, comments});
+
+        // save data in local storage
+        let projectsRatingAndCommentsToLS: ProjectsRatingAndCommentsLSType = {rating, comments};
+        localStorage.setItem('projects-rating-and-comments', JSON.stringify(projectsRatingAndCommentsToLS));
+
     }, [myProjectsInRatingType]);
+
 
     const setPreviewHandler = () => {
         let feedbackPreviewInString = feedbackDataConverter("preview", formik.values);
@@ -76,7 +110,11 @@ export const FeedbackForm = () => {
         dispatch(setFeedbackMode('preview'));
     };
     const resetForm = () => {
-        formik.resetForm();
+        setInitialFormikValues(freshFormikValues);
+        // formik.resetForm() don't work - initialFormikValues comes from localStorage
+        // formik.resetForm();
+        // for reset using setValues - it's Ok)
+        formik.setValues({...formik.values, ...freshFormikValues});
         dispatch(clearCurrentRatingsAndComments());
     };
 

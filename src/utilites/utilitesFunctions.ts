@@ -12,7 +12,7 @@ export const feedbackDataConverter = (point: ConverterPointType, feedbackData: F
     });
     let emailJSText = `Feedback:\n ${text}${projectsList.length ? `\n\nProjects rating:${ratingsInTextStr}` : ''}`;
 
-    let previewText = `You got a new feedback from ${name}.\n Email: ${email}\n\n${emailJSText}`;
+    let previewText = `You got a new feedback from ${name}.\nEmail: ${email}\n\n${emailJSText}`;
 
     return point === 'emailJS' ? emailJSText : previewText;
 };

@@ -17,7 +17,7 @@ export const MyContacts = () => {
             })
     };
 
-    // create JSX for column
+    // create JSX for column using variable elementsInColumn for columnForm
     for (let i = 0; i < myContacts.length; i += elementsInColumn) {
         let columnToRender: Array<ReactElement> = []
         for (let j = 0; j < elementsInColumn; j++) {
@@ -29,7 +29,9 @@ export const MyContacts = () => {
                     <div className={s.myContactValueWrapper}>
                         {myContacts[i + j].title === 'Phone Number'
                             ? <a href={`tel:${myContacts[i + j].value}`}>{myContacts[i + j].value}</a>
-                            : <a href={myContacts[i + j].value} target='_blank'>{myContacts[i + j].value}</a>}
+                            : myContacts[i + j].title === 'Email'
+                                ? <a href={`mailto:${myContacts[i + j].value}`}>{myContacts[i + j].value}</a>
+                                : <a href={myContacts[i + j].value} target='_blank'>{myContacts[i + j].value}</a>}
                     </div>
                     <div className={s.clipBoardCopy} onClick={() => clipBoardCopyHandler(myContacts[i + j].value)}/>
                 </div>

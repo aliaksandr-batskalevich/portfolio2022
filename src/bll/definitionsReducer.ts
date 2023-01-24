@@ -31,6 +31,7 @@ const definitionsInitState: DefinitionsStateType = {
     timeToProjectMenuOpenCloseSec: 1,
     feedbackMode: "form",
     feedbackPreview: '',
+    // data for sending feedback to Aliaksander Batskalevich
     emailJSKeys: {
         SERVICE_ID: 'service_ml168on',
         TEMPLATE_ID: 'feedback_on_my_resume',
