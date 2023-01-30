@@ -4,6 +4,7 @@
 
   input, textarea, select {
     background-color: $feedback-background-color;
+    border: $font-darken-color solid 1px;
   }
 
   .writersAddressWrapper {

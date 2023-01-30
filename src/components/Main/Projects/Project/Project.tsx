@@ -29,7 +29,14 @@ export const Project: React.FC<ProjectPropsType> = ({projectState, project, setP
         const checkIfClickedOutside = (e: MouseEvent<HTMLImageElement>) => {
             // @ts-ignore
             if (isMenuOpen && ref.current && !ref.current.contains(e.target)) {
-                setProjectState(null);
+
+                // timeout for click on link (time for event)
+                let timeOutId = setTimeout((value) => {
+                    setProjectState(value);
+                }, 100, null);
+                return () => {
+                    clearTimeout(timeOutId);
+                }
             }
         };
 

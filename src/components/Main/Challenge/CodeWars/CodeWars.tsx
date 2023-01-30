@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import s from './CodeWars.module.scss';
 import {useSelector} from "react-redux";
-import {getCodeWarsData, getIsDataFetching, getIsFetchingError} from "../../../../bll/selectors";
+import {getCodeWarsData, getIsDataFetching, getIsFetchingError, getNumOfCodeWarsUsers} from "../../../../bll/selectors";
 import {useAppDispatch} from "../../../../utilites/customHooks";
 import {getUserDataTC} from "../../../../bll/challengeReducer";
 
@@ -10,6 +10,7 @@ export const CodeWars = () => {
 
     let isDataFetching = useSelector(getIsDataFetching);
     let isFetchingError = useSelector(getIsFetchingError);
+    let numOfCodeWarsUsers = useSelector(getNumOfCodeWarsUsers);
     let {username, honor, leaderboardPosition, ranks, codeChallenges} = useSelector(getCodeWarsData)
     let {overall, languages} = ranks;
     let languagesToRender = languages ? Object.keys(languages).join(', ') : null;
@@ -48,6 +49,9 @@ export const CodeWars = () => {
     let optionPartsToRender = optionPartsArr.map((el, index) => <div key={index}>
         <span className={s.title}>{el.title}</span>
         <span className={s.value}>{el.value}</span>
+
+        {/*description for leaderboardPosition */}
+        {el.title === 'leaderboardPosition: ' && <span className={s.numOfCodeWarsUsers}>{` of ${numOfCodeWarsUsers}`}</span>}
     </div>);
 
     let contentWrapperAlignStyle = {justifyContent: isDataFetching || isFetchingError ? 'center' : 'flex-start'};

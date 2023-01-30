@@ -15,6 +15,7 @@ export type EmailJSKeysType = {
 }
 export type DefinitionsStateType = {
     followMeNetworks: Array<string>
+    numOfCodeWarsUsers: string
     currentProjectFilter: ProjectFilterType
     timeToProjectsColorEffectSec: number
     timeToProjectMenuOpenCloseSec: number
@@ -26,6 +27,7 @@ export type DefinitionsStateType = {
 
 const definitionsInitState: DefinitionsStateType = {
     followMeNetworks: ['linkedIn', 'gitHub', 'codeWars'],
+    numOfCodeWarsUsers: 'more then 500k',
     currentProjectFilter: 'ALL',
     timeToProjectsColorEffectSec: 3,
     timeToProjectMenuOpenCloseSec: 1,

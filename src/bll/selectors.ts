@@ -9,6 +9,7 @@ import {CodeWarsDataType} from "./challengeReducer";
 import {ResumeStateType} from "./resumeReduucer";
 
 // definitions
+export const getNumOfCodeWarsUsers = (state: RootAppStateType): string => state.definitions.numOfCodeWarsUsers;
 export const getFollowMeNetworks = (state: RootAppStateType): Array<string> => state.definitions.followMeNetworks;
 export const getCurrentProjectFilter = (state: RootAppStateType): ProjectFilterType => state.definitions.currentProjectFilter;
 export const getTimeToProjectsColorEffectSec = (state: RootAppStateType): number => state.definitions.timeToProjectsColorEffectSec;

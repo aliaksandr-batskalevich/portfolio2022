@@ -133,7 +133,7 @@ const projectsInitState: ProjectsStateType = {
             id: v1(),
             title: 'HTML Project',
             image: 'https://repository-images.githubusercontent.com/486226419/99587ec7-b54b-4ccc-9d8e-eae9cbbc6f9e',
-            description: 'My first project with using HTML and CSS.',
+            description: 'My first project with using HTML and CSS. Project does not use JS.',
             codeLink: 'https://github.com/aliaksandr-batskalevich/htmlFinalProject',
             viewLink: 'https://aliaksandr-batskalevich.github.io/htmlFinalProject',
             tools: ["HTML", "CSS"],
