@@ -17,3 +17,9 @@ export const feedbackDataConverter = (point: ConverterPointType, feedbackData: F
     return point === 'emailJS' ? emailJSText : previewText;
 };
 
+export const textCuter = (text: string, maxSize: number) => {
+    let newText = text.slice(0, maxSize > 4 ? maxSize - 3 : maxSize);
+    let dots = text === newText ? '' : '...';
+    return  newText + dots;
+};
+

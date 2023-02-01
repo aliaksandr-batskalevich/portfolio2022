@@ -6,14 +6,16 @@ import {Footer} from "./components/Footer/Footer";
 import {Sidebar} from "./components/Sidebar/Sidebar";
 import {Provider} from "react-redux";
 import {store} from "./bll/store";
+import {Snackbar} from "./components/Snackbar/Snackbar";
 
 function App() {
   return (
     <div className="AppWrapper">
         <Provider store={store}>
             <Header/>
-            <Sidebar/>
             <Main/>
+            <Sidebar/>
+            <Snackbar/>
             <Footer/>
         </Provider>
     </div>

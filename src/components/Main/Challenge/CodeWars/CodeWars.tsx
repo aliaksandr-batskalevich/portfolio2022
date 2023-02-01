@@ -1,7 +1,12 @@
 import React, {useEffect} from 'react';
 import s from './CodeWars.module.scss';
 import {useSelector} from "react-redux";
-import {getCodeWarsData, getIsDataFetching, getIsFetchingError, getNumOfCodeWarsUsers} from "../../../../bll/selectors";
+import {
+    getCodeWarsData,
+    getIsDataFetching,
+    getIsFetchingError,
+    getNumOfCodeWarsUsers
+} from "../../../../bll/selectors";
 import {useAppDispatch} from "../../../../utilites/customHooks";
 import {getUserDataTC} from "../../../../bll/challengeReducer";
 

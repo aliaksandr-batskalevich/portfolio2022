@@ -26,8 +26,12 @@ export type DefinitionsStateType = {
 
 
 const definitionsInitState: DefinitionsStateType = {
+    // data for Following in SideBAr component
     followMeNetworks: ['linkedIn', 'gitHub', 'codeWars'],
+
+    // data for CodeWars
     numOfCodeWarsUsers: 'more then 500k',
+
     currentProjectFilter: 'ALL',
     timeToProjectsColorEffectSec: 3,
     timeToProjectMenuOpenCloseSec: 1,

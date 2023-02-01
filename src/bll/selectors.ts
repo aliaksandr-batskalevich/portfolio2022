@@ -76,6 +76,5 @@ export const getIsDataFetching = (state: RootAppStateType): boolean => state.cha
 export const getIsFetchingError = (state: RootAppStateType): null | string => state.challenge.isFetchingError;
 export const getCodeWarsData = (state: RootAppStateType): CodeWarsDataType => state.challenge.codeWarsData;
 
-
 // resume
 export const getResumeState = (state: RootAppStateType): ResumeStateType => state.resume;
