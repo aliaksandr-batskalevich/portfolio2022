@@ -28,7 +28,7 @@ type ProjectsRatingAndCommentsLSType = { rating: Record<string, string>, comment
 export const FeedbackForm = () => {
 
     const dispatch = useAppDispatch();
-    let myProjectsInRatingType = useSelector(getMyProjectsInRatingType);
+    let myProjectsInRating = useSelector(getMyProjectsInRatingType);
     let {TEMPLATE_ID, SERVICE_ID, PUBLIC_KEY} = useSelector(getEmailJSKeys);
 
     // useEffect for update projects currentRating and comments from local storage
@@ -96,13 +96,12 @@ export const FeedbackForm = () => {
             sendFeedbackByEmailJS(values)
                 .then(response => {
                     dispatch(addSnackbarInfoMessage('Your feedback has been sent.'));
-                    dispatch(addSnackbarInfoMessage('Thanks :)'));
-                    resetForm();
+                    resetForm(); // not work!!! Must be fix!!!
                 })
                 .catch(error => {
                     // no errorMessage from library
                     dispatch(addSnackbarErrorMessage('Some error...'));
-                });
+                })
         },
     });
 
@@ -118,7 +117,7 @@ export const FeedbackForm = () => {
     useEffect(() => {
         let rating = {} as Record<string, string>;
         let comments = {} as Record<string, string>;
-        myProjectsInRatingType.forEach(pr => {
+        myProjectsInRating.forEach(pr => {
             if (pr.rating.currentRating !== null) {
                 rating[pr.title] = String(pr.rating.currentRating);
                 comments[pr.title] = pr.comments;
@@ -126,13 +125,15 @@ export const FeedbackForm = () => {
         });
 
         // update data in formik
-        formik.setValues({...formik.values, rating, comments});
+        // formik.setValues({...formik.values, rating, comments});
+        formik.values.rating = rating;
+        formik.values.comments = comments;
 
         // save data in local storage
         let projectsRatingAndCommentsToLS: ProjectsRatingAndCommentsLSType = {rating, comments};
         localStorage.setItem('projects-rating-and-comments', JSON.stringify(projectsRatingAndCommentsToLS));
 
-    }, [myProjectsInRatingType]);
+    }, [myProjectsInRating]);
 
 
     const setPreviewHandler = () => {
@@ -141,10 +142,8 @@ export const FeedbackForm = () => {
         dispatch(setFeedbackMode('preview'));
     };
     const resetForm = () => {
-
         dispatch(clearCurrentRatingsAndComments());
-        // formik.setValues({...formik.values, ...freshFormikValues});
-        formik.resetForm({values: {...formik.values, ...freshFormikValues}});
+        formik.resetForm({values: {name: '', email: '', text: '', rating: {}, comments: {}}});
     };
 
     // data for show feedback on validate in UI
@@ -153,7 +152,12 @@ export const FeedbackForm = () => {
         opacity: '.5',
         pointerEvents: 'none' as const
     };
-    const disabledPreviewAndSubmitButtonStyle = Object.keys(formik.errors).length ? disabledButtonStyle : undefined;
+    const disabledPreviewAndSubmitButtonStyle = Object.keys(formik.errors).length
+    || !formik.values.name
+    || !formik.values.email
+    || !formik.values.text
+        ? disabledButtonStyle
+        : undefined;
     const disabledClearButtonStyle = !Object.keys(formik.values.rating).length
     && !formik.values.name
     && !formik.values.email
