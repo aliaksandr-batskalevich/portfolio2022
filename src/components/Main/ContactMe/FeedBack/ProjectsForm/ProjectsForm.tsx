@@ -6,6 +6,7 @@ import {AddProject} from "./AddProject/AddProject";
 import {useAppDispatch} from "../../../../../utilites/customHooks";
 import {useSelector} from "react-redux";
 import {getMyProjectsInRatingType, getProjectsToRatingDataSort} from "../../../../../bll/selectors";
+import {addSnackbarWarningMessage} from "../../../../../bll/snackbarReducer";
 
 
 type ProjectsFormPropsType = {
@@ -21,6 +22,7 @@ export const ProjectsForm: React.FC<ProjectsFormPropsType> = () => {
 
     const removeProjectToRatingHandler = (id: string) => {
         dispatch(removeCurrentProjectRating(id));
+        dispatch(addSnackbarWarningMessage('Your score has been cancelled!'));
     };
     const changeCurrentProjectRatingHandler = (id: string, currentRating: RatingType) => {
         dispatch(changeCurrentProjectRating(id, currentRating));

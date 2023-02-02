@@ -1,12 +1,13 @@
+import {createSelector} from "reselect";
 import {RootAppStateType} from "./store";
 import {GeneralInfoStateType} from "./generalInfoReducer";
 import {MyQuoteType, SkillType} from "./aboutMeReducer";
 import {ContactsPatternType, LinksType, MyContactsType} from "./contactsReducer";
-import {createSelector} from "reselect";
 import {ProjectToRatingType, ProjectType} from "./projectsReducer";
-import {EmailJSKeysType, FeedbackModeType, ProjectFilterType} from "./definitionsReducer";
+import {EmailJSKeysType, FeedbackModeType, ProjectFilterType, SnackbarTimingSecType} from "./definitionsReducer";
 import {CodeWarsDataType} from "./challengeReducer";
 import {ResumeStateType} from "./resumeReduucer";
+import {SnackbarMessageType} from "./snackbarReducer";
 
 // definitions
 export const getNumOfCodeWarsUsers = (state: RootAppStateType): string => state.definitions.numOfCodeWarsUsers;
@@ -17,6 +18,7 @@ export const getTimeToProjectMenuOpenCloseSec = (state: RootAppStateType): numbe
 export const getFeedbackMode = (state: RootAppStateType): FeedbackModeType => state.definitions.feedbackMode;
 export const getFeedbackPreview = (state: RootAppStateType): string => state.definitions.feedbackPreview;
 export const getEmailJSKeys = (state: RootAppStateType): EmailJSKeysType => state.definitions.emailJSKeys;
+export const getSnackbarTimingSec = (state: RootAppStateType): SnackbarTimingSecType => state.definitions.snackbar.timingSec;
 
 
 // generalInfo
@@ -78,3 +80,6 @@ export const getCodeWarsData = (state: RootAppStateType): CodeWarsDataType => st
 
 // resume
 export const getResumeState = (state: RootAppStateType): ResumeStateType => state.resume;
+
+// snackbar
+export const getSnackbarMessages = (state: RootAppStateType): Array<SnackbarMessageType> => state.snackbar.snackbarMessages;

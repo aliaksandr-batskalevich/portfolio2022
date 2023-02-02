@@ -2,9 +2,14 @@ import React, {ReactElement} from 'react';
 import s from './MyContacts.module.scss';
 import {useSelector} from "react-redux";
 import {getMyContactsPatternSort} from "../../../../bll/selectors";
+import {useAppDispatch} from "../../../../utilites/customHooks";
+import {addSnackbarErrorMessage, addSnackbarInfoMessage} from "../../../../bll/snackbarReducer";
+import {Simulate} from "react-dom/test-utils";
+import error = Simulate.error;
 
 export const MyContacts = () => {
 
+    const dispatch = useAppDispatch();
     let myContacts = useSelector(getMyContactsPatternSort);
     let myContactsToRender: Array<ReactElement> = [];
     let elementsInColumn = 3;
@@ -13,7 +18,10 @@ export const MyContacts = () => {
     const clipBoardCopyHandler = (value: string) => {
         navigator.clipboard.writeText(value)
             .then(() => {
-                alert('Copied');
+                dispatch(addSnackbarInfoMessage(`Copied! ${value}`))
+            })
+            .catch(error => {
+                dispatch(addSnackbarErrorMessage(error));
             })
     };
 

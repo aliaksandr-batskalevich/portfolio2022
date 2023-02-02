@@ -8,9 +8,7 @@ export default {
     component: Message,
     // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
 
-    // argTypes: {
-    //     backgroundColor: { control: 'color' },
-    // },
+    argTypes: {},
 
 } as ComponentMeta<typeof Message>;
 
@@ -22,7 +20,7 @@ export const Error = Template.bind({});
 Error.args = {
     id: '123',
     type: "error",
-    message: "It's error, Baby!",
-    closeMessage: (id: string) => {alert('close')},
+    text: "It's error, Man!",
+    closeMessage: (id: string) => {alert('Closed!')},
 };
 

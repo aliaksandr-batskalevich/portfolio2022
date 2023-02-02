@@ -67,6 +67,7 @@ export const Project: React.FC<ProjectPropsType> = ({projectState, project, setP
 
     const setCurrentRatingHandler = (newRating: RatingType) => {
         setCurrentRating(project.id, newRating);
+
     };
 
     return (

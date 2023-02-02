@@ -13,6 +13,14 @@ export type EmailJSKeysType = {
     TEMPLATE_ID: string
     PUBLIC_KEY: string
 }
+export type SnackbarTimingSecType = {
+    error: number
+    warning: number
+    info: number
+};
+type SnackbarDefinitionsType = {
+    timingSec: SnackbarTimingSecType
+};
 export type DefinitionsStateType = {
     followMeNetworks: Array<string>
     numOfCodeWarsUsers: string
@@ -22,6 +30,7 @@ export type DefinitionsStateType = {
     feedbackMode: FeedbackModeType
     feedbackPreview: string
     emailJSKeys: EmailJSKeysType
+    snackbar: SnackbarDefinitionsType
 };
 
 
@@ -42,6 +51,14 @@ const definitionsInitState: DefinitionsStateType = {
         SERVICE_ID: 'service_ml168on',
         TEMPLATE_ID: 'feedback_on_my_resume',
         PUBLIC_KEY: 'HvXpvzrDDZoVDJQG4',
+    },
+    // data for snackbar (timing for messageAutoClose)
+    snackbar: {
+        timingSec: {
+            error: 15,
+            warning: 10,
+            info: 5,
+        }
     }
 };
 

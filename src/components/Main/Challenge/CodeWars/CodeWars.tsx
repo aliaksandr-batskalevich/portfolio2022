@@ -30,7 +30,7 @@ export const CodeWars = () => {
     }, [])
 
     const refreshUserDataHandler = () => {
-        let pr = dispatch(getUserDataTC());
+        let pr = dispatch(getUserDataTC('update'));
     };
 
     class OptionPart {

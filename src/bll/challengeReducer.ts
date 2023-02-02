@@ -2,6 +2,7 @@ import {ActionsType} from "./store";
 import {ThunkAppDispatchType} from "../utilites/customHooks";
 import {codeWarsAPI} from "../dal/api";
 import axios, {AxiosError} from "axios";
+import {addSnackbarErrorMessage, addSnackbarInfoMessage} from "./snackbarReducer";
 
 export type ChallengeActionsType = ReturnType<typeof setIsDataFetching>
     | ReturnType<typeof setCodeWarsData>
@@ -105,7 +106,7 @@ const setCodeWarsData = (codeWarsData: CodeWarsDataType) => {
         payload: {codeWarsData}
     } as const;
 };
-export const getUserDataTC = () => async (dispatch: ThunkAppDispatchType) => {
+export const getUserDataTC = (caller?: 'update') => async (dispatch: ThunkAppDispatchType) => {
     dispatch(setIsDataFetching(true));
     dispatch(setIsFetchingError(null));
 
@@ -115,6 +116,7 @@ export const getUserDataTC = () => async (dispatch: ThunkAppDispatchType) => {
         if (response.status >= 200 && response.status < 300) {
             dispatch(setCodeWarsData(response.data));
             dispatch(setIsDataFetching(false));
+            caller && dispatch(addSnackbarInfoMessage('CodeWarsData updated!'))
         } else {
             throw new Error(response.statusText);
         }
@@ -132,5 +134,6 @@ export const getUserDataTC = () => async (dispatch: ThunkAppDispatchType) => {
 
         dispatch(setIsFetchingError(errorMessage));
         dispatch(setIsDataFetching(false));
+        caller && dispatch(addSnackbarErrorMessage(errorMessage));
     }
 };

@@ -11,6 +11,7 @@ import {
 import {ProjectFilterType, setCurrentProjectFilter} from "../../../bll/definitionsReducer";
 import {useAppDispatch} from "../../../utilites/customHooks";
 import {changeCurrentProjectRating, RatingType, setProjectToFormRating} from "../../../bll/projectsReducer";
+import {addSnackbarInfoMessage} from "../../../bll/snackbarReducer";
 
 
 export const Projects = () => {
@@ -27,6 +28,7 @@ export const Projects = () => {
     };
     const setCurrentRatingStateHandler = (id: string, currentRating: RatingType) => {
         dispatch(changeCurrentProjectRating(id, currentRating));
+        dispatch(addSnackbarInfoMessage('Your score has been accepted!'));
     };
 
 

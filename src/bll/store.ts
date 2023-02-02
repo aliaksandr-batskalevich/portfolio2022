@@ -7,9 +7,10 @@ import {DefinitionsActionsType, definitionsReducer} from "./definitionsReducer";
 import {ProjectsActionsType, projectsReducer} from "./projectsReducer";
 import {ChallengeActionsType, challengeReducer} from "./challengeReducer";
 import {resumeReducer} from "./resumeReduucer";
+import {SnackbarActionsType, snackbarReducer} from "./snackbarReducer";
 
 
-export type ActionsType = DefinitionsActionsType | ProjectsActionsType | ChallengeActionsType;
+export type ActionsType = DefinitionsActionsType | ProjectsActionsType | ChallengeActionsType | SnackbarActionsType;
 export type RootAppStateType = ReturnType<typeof rootReducer>;
 
 let rootReducer = combineReducers({
@@ -20,6 +21,7 @@ let rootReducer = combineReducers({
     projects: projectsReducer,
     challenge: challengeReducer,
     resume: resumeReducer,
+    snackbar: snackbarReducer,
 });
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware));

@@ -13,6 +13,10 @@
 
   .removeProjectButton {
     cursor: pointer;
+    &:hover {
+      transform: scale(1.05);
+      font-weight: bold;
+    }
     &::after{
       content: '✗';
       display: inline-block;
