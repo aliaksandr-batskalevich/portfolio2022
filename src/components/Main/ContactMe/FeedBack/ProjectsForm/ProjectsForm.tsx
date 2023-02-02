@@ -8,12 +8,7 @@ import {useSelector} from "react-redux";
 import {getMyProjectsInRatingType, getProjectsToRatingDataSort} from "../../../../../bll/selectors";
 import {addSnackbarWarningMessage} from "../../../../../bll/snackbarReducer";
 
-
-type ProjectsFormPropsType = {
-
-}
-
-export const ProjectsForm: React.FC<ProjectsFormPropsType> = () => {
+export const ProjectsForm = () => {
 
     const dispatch = useAppDispatch();
 
@@ -39,12 +34,8 @@ export const ProjectsForm: React.FC<ProjectsFormPropsType> = () => {
 
     return (
         <div className={s.projectsFormWrapper}>
-
             {projectsToRatingToRender}
-
-            <AddProject
-                projects={projects}
-            />
+            <AddProject projects={projects}/>
         </div>
     );
 };

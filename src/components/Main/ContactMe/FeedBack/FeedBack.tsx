@@ -10,7 +10,7 @@ export const FeedBack = () => {
 
     let feedbackMode = useSelector(getFeedbackMode);
 
-    let feedbackStyleOnPreview = feedbackMode === "preview"
+    let feedbackStyleOnPreviewMode = feedbackMode === "preview"
         ? {
             filter: 'blur(10px)',
             pointerEvents: 'none' as const,
@@ -20,7 +20,7 @@ export const FeedBack = () => {
 
     return (
         <div className={s.feedbackWrapper}>
-            <div style={feedbackStyleOnPreview}>
+            <div style={feedbackStyleOnPreviewMode}>
                 <h3>Feedback</h3>
                 <FeedbackForm/>
             </div>

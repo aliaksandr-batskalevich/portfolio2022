@@ -4,6 +4,7 @@ import {ProjectToRatingType, setProjectToFormRating} from "../../../../../../bll
 import {useAppDispatch} from "../../../../../../utilites/customHooks";
 import {useSelector} from "react-redux";
 import {getProjectsTitlesForRatingSelectSort} from "../../../../../../bll/selectors";
+import {addSnackbarInfoMessage} from "../../../../../../bll/snackbarReducer";
 
 type AddProjectPropsType = {
     projects: Array<ProjectToRatingType>
@@ -27,6 +28,7 @@ export const AddProject: React.FC<AddProjectPropsType> = ({projects}) => {
 
         newProjectToFormRating && dispatch(setProjectToFormRating(newProjectToFormRating.id));
         setProjectSelector(defaultOption);
+        dispatch(addSnackbarInfoMessage('Set rating, please!'));
     };
 
     let optionsToRender = projectsForSelect.map((pr, index) => <option key={index} value={pr}>{pr}</option>);

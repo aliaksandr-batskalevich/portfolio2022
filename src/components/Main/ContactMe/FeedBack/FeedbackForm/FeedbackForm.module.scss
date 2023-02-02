@@ -69,14 +69,11 @@
       border: white solid 1px;
       border-radius: 5px;
 
-      // style for disabled
-      //opacity: .5;
-      //pointer-events: none;
-
       &:hover {
         transform: scale(1.02);
         text-decoration: underline;
       }
+
       &:active {
         transform: scale(1.05);
         text-shadow: 2px 2px black;
@@ -86,9 +83,11 @@
       &:nth-child(1) {
         background-color: #1ea7fd;
       }
+
       &:nth-child(2) {
         background-color: white;
       }
+
       &:nth-child(3) {
         background-color: $red-color;
       }
