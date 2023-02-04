@@ -1,24 +1,30 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import s from './MyResume.module.scss'
 import {ResumePart} from "./ResumePart/ResumePart";
 import {Statistics} from "./Statistics/Statistics";
 import {useSelector} from "react-redux";
 import {getResumeState} from "../../../bll/selectors";
+import {useAppDispatch} from "../../../utilites/customHooks";
+import {superScrollListener} from "../../../utilites/utilitesFunctions";
 
 
 export const MyResume = () => {
-
-    let {experience, statisticsData} = useSelector(getResumeState);
 
     // to control the component
     let [isStatisticActive, setIsStatisticActive] = useState<boolean>(false);
     let [isExperienceActive, setIsExperienceActive] = useState<boolean>(false);
 
-    // Handle mode
-    const myResumeOnClickHandler = () => {
-        setIsStatisticActive(true);
-        setIsExperienceActive(true);
+    // Handle control
+    const activatorHandler = () => {
+        !isStatisticActive && setIsStatisticActive(true);
+        !isExperienceActive && setIsExperienceActive(true);
     };
+
+    const dispatch = useAppDispatch();
+    // useEffect for set current page
+    useEffect(superScrollListener('myResume', dispatch, activatorHandler, -200), []);
+
+    let {experience, statisticsData} = useSelector(getResumeState);
 
     // code for styling myResumePageWrapper (incorrect height incorrect height due to position absolute in resumeStage
     // 75px - min-height of resumeStageWrapper
@@ -29,7 +35,7 @@ export const MyResume = () => {
         <div id="myResume" className={s.myResumePageWrapper}>
             <div className='container'>
                 <div className={s.titleWrapper}>
-                    <h2 onClick={myResumeOnClickHandler}>My resume</h2>
+                    <h2>My resume</h2>
                 </div>
                 <div className={s.resumePartsWrapper} style={resumePartsWrapperHeightStyle}>
                     <ResumePart

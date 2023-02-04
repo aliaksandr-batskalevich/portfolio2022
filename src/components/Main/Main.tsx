@@ -8,8 +8,9 @@ import {MyResume} from "./MyResume/MyResume";
 import {ContactMe} from "./ContactMe/ContactMe";
 
 export const Main = () => {
+
     return (
-        <div className={s.mainWrapper}>
+        <div id={'main'} className={s.mainWrapper}>
             <Home/>
             <AboutMe/>
             <Projects/>

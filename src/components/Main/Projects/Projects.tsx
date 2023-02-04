@@ -1,27 +1,41 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import s from './Projects.module.scss'
 import {Project} from "./Project/Project";
 import {Filter} from "./Filter/Filter";
 import {useSelector} from "react-redux";
 import {
     getCurrentProjectFilter,
-    getToolsFilteredProjects,
-    getMyProjects, getTimeToProjectsColorEffectSec
+    getMyProjects,
+    getTimeToProjectsColorEffectSec,
+    getToolsFilteredProjects
 } from "../../../bll/selectors";
 import {ProjectFilterType, setCurrentProjectFilter} from "../../../bll/definitionsReducer";
 import {useAppDispatch} from "../../../utilites/customHooks";
-import {changeCurrentProjectRating, RatingType, setProjectToFormRating} from "../../../bll/projectsReducer";
+import {changeCurrentProjectRating, RatingType} from "../../../bll/projectsReducer";
 import {addSnackbarInfoMessage} from "../../../bll/snackbarReducer";
+import {superScrollListener} from "../../../utilites/utilitesFunctions";
 
 
 export const Projects = () => {
+
+    // state for colorControl of Component
+    let [isActive, setIsActive] = useState<boolean>(false);
+    // handle mode
+    const setIsActiveHandler = () => {
+        !isActive && setIsActive(true);
+    };
+
+    const dispatch = useAppDispatch();
+
+    // useEffect for set current page
+    useEffect(superScrollListener('projects', dispatch, setIsActiveHandler, -200), []);
+
 
     let projects = useSelector(getMyProjects);
     let currentProjectFilter = useSelector(getCurrentProjectFilter);
     let filteredProjects = useSelector(getToolsFilteredProjects);
     let timeToProjectsColorEffectSec = useSelector(getTimeToProjectsColorEffectSec);
 
-    const dispatch = useAppDispatch();
 
     const setCurrentProjectFilterHandler = (currentProjectFilter: ProjectFilterType) => {
         dispatch(setCurrentProjectFilter(currentProjectFilter))
@@ -29,14 +43,6 @@ export const Projects = () => {
     const setCurrentRatingStateHandler = (id: string, currentRating: RatingType) => {
         dispatch(changeCurrentProjectRating(id, currentRating));
         dispatch(addSnackbarInfoMessage('Your score has been accepted!'));
-    };
-
-
-    // code for colorControl of Component
-    let [isColorActive, setIsColorActive] = useState<boolean>(false);
-    // handle mode
-    const setIsActiveHandler = () => {
-        setIsColorActive(true);
     };
 
 
@@ -53,7 +59,7 @@ export const Projects = () => {
                 key={pr.id}
                 projectState={projectState}
                 project={pr}
-                isColorActive={isColorActive}
+                isColorActive={isActive}
                 timeToRenderSec={timeToProjectsColorEffectSec}
 
                 setProjectState={setProjectStateHandler}

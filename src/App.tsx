@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {UIEvent} from 'react';
 import './App.scss';
 import {Header} from "./components/Header/Header";
 import {Main} from "./components/Main/Main";
@@ -9,6 +9,7 @@ import {store} from "./bll/store";
 import {Snackbar} from "./components/Snackbar/Snackbar";
 
 function App() {
+
   return (
     <div className="AppWrapper">
         <Provider store={store}>

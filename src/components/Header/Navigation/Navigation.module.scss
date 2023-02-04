@@ -11,14 +11,14 @@
 
       li {
 
-        // must be refactor
-        &:first-child a {
-          color: $red-color;
-        }
         a {
         }
       }
     }
   }
+}
+
+.activeLink {
+  color: $red-color
 }
 

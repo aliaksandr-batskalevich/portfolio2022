@@ -4,8 +4,10 @@ import {ToolType} from "./projectsReducer";
 export type DefinitionsActionsType = ReturnType<typeof setCurrentProjectFilter>
     | ReturnType<typeof setFeedbackMode>
     | ReturnType<typeof setFeedbackPreview>
-    | ReturnType<typeof setClearFeedbackPreview>;
+    | ReturnType<typeof setClearFeedbackPreview>
+    | ReturnType<typeof setCurrentPage>;
 
+export type PageTitleType = 'home' | 'aboutMe' | 'projects' | 'challenge' | 'myResume' | 'contactMe' | 'notFound';
 export type ProjectFilterType = 'ALL' | ToolType;
 export type FeedbackModeType = 'form' | 'preview'
 export type EmailJSKeysType = {
@@ -22,6 +24,7 @@ type SnackbarDefinitionsType = {
     timingSec: SnackbarTimingSecType
 };
 export type DefinitionsStateType = {
+    currentPage: PageTitleType
     followMeNetworks: Array<string>
     numOfCodeWarsUsers: string
     currentProjectFilter: ProjectFilterType
@@ -35,6 +38,8 @@ export type DefinitionsStateType = {
 
 
 const definitionsInitState: DefinitionsStateType = {
+    currentPage: 'home',
+
     // data for Following in SideBAr component
     followMeNetworks: ['linkedIn', 'gitHub', 'codeWars'],
 
@@ -64,6 +69,8 @@ const definitionsInitState: DefinitionsStateType = {
 
 export const definitionsReducer = (state: DefinitionsStateType = definitionsInitState, action: ActionsType) => {
     switch (action.type) {
+        case 'SET_CURRENT_PAGE':
+            return {...state, ...action.payload};
         case "SET_CURRENT_PROJECT_FILTER":
             return {...state, ...action.payload};
         case 'SET_FEEDBACK_MODE':
@@ -77,6 +84,12 @@ export const definitionsReducer = (state: DefinitionsStateType = definitionsInit
     }
 };
 
+export const setCurrentPage = (currentPage: PageTitleType) => {
+    return {
+        type: 'SET_CURRENT_PAGE',
+        payload: {currentPage}
+    } as const;
+};
 export const setCurrentProjectFilter = (currentProjectFilter: ProjectFilterType) => {
     return {
         type: 'SET_CURRENT_PROJECT_FILTER',

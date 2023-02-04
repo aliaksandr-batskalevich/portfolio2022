@@ -158,12 +158,7 @@ export const FeedbackForm = () => {
     || !formik.values.text
         ? disabledButtonStyle
         : undefined;
-    const disabledClearButtonStyle = !Object.keys(formik.values.rating).length
-    && !formik.values.name
-    && !formik.values.email
-    && !formik.values.text
-        ? disabledButtonStyle
-        : undefined;
+
     // red fieldBorder
     const errorFieldStyle = {
         border: 'red solid 1px',
@@ -236,7 +231,6 @@ export const FeedbackForm = () => {
 
                     <button
                         className={s.submitButton}
-                        style={disabledClearButtonStyle}
                         type='reset'
                         onClick={resetForm}
                     >

@@ -1,11 +1,17 @@
-import React from "react";
+import React, {useEffect} from "react";
 import s from './Home.module.scss';
 import Writer from "./Writer/Writer";
 import {v1} from "uuid";
 import {useSelector} from "react-redux";
 import {getCountry, getGeneralInfo, getMainQualities} from "../../../bll/selectors";
+import {useAppDispatch} from "../../../utilites/customHooks";
+import {superScrollListener} from "../../../utilites/utilitesFunctions";
 
 export const Home = () => {
+
+    const dispatch = useAppDispatch();
+    // useEffect for set current page
+    useEffect(superScrollListener('home', dispatch, undefined, -200), []);
 
     let {birthday, fullName, status} = useSelector(getGeneralInfo);
     let mainQualities = useSelector(getMainQualities);

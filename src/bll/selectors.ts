@@ -4,12 +4,19 @@ import {GeneralInfoStateType} from "./generalInfoReducer";
 import {MyQuoteType, SkillType} from "./aboutMeReducer";
 import {ContactsPatternType, LinksType, MyContactsType} from "./contactsReducer";
 import {ProjectToRatingType, ProjectType} from "./projectsReducer";
-import {EmailJSKeysType, FeedbackModeType, ProjectFilterType, SnackbarTimingSecType} from "./definitionsReducer";
+import {
+    EmailJSKeysType,
+    FeedbackModeType,
+    PageTitleType,
+    ProjectFilterType,
+    SnackbarTimingSecType
+} from "./definitionsReducer";
 import {CodeWarsDataType} from "./challengeReducer";
 import {ResumeStateType} from "./resumeReduucer";
 import {SnackbarMessageType} from "./snackbarReducer";
 
 // definitions
+export const getCurrentPage = (state: RootAppStateType): PageTitleType => state.definitions.currentPage;
 export const getNumOfCodeWarsUsers = (state: RootAppStateType): string => state.definitions.numOfCodeWarsUsers;
 export const getFollowMeNetworks = (state: RootAppStateType): Array<string> => state.definitions.followMeNetworks;
 export const getCurrentProjectFilter = (state: RootAppStateType): ProjectFilterType => state.definitions.currentProjectFilter;
