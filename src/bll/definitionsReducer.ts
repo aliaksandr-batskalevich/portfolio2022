@@ -5,7 +5,8 @@ export type DefinitionsActionsType = ReturnType<typeof setCurrentProjectFilter>
     | ReturnType<typeof setFeedbackMode>
     | ReturnType<typeof setFeedbackPreview>
     | ReturnType<typeof setClearFeedbackPreview>
-    | ReturnType<typeof setCurrentPage>;
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setIsHomeTop>;
 
 export type PageTitleType = 'home' | 'aboutMe' | 'projects' | 'challenge' | 'myResume' | 'contactMe' | 'notFound';
 export type ProjectFilterType = 'ALL' | ToolType;
@@ -24,6 +25,7 @@ type SnackbarDefinitionsType = {
     timingSec: SnackbarTimingSecType
 };
 export type DefinitionsStateType = {
+    isHomeTop: boolean
     currentPage: PageTitleType
     followMeNetworks: Array<string>
     numOfCodeWarsUsers: string
@@ -38,6 +40,7 @@ export type DefinitionsStateType = {
 
 
 const definitionsInitState: DefinitionsStateType = {
+    isHomeTop: true,
     currentPage: 'home',
 
     // data for Following in SideBAr component
@@ -69,6 +72,8 @@ const definitionsInitState: DefinitionsStateType = {
 
 export const definitionsReducer = (state: DefinitionsStateType = definitionsInitState, action: ActionsType) => {
     switch (action.type) {
+        case 'SET_IS_HOME_TOP':
+            return {...state, ...action.payload};
         case 'SET_CURRENT_PAGE':
             return {...state, ...action.payload};
         case "SET_CURRENT_PROJECT_FILTER":
@@ -84,6 +89,12 @@ export const definitionsReducer = (state: DefinitionsStateType = definitionsInit
     }
 };
 
+export const setIsHomeTop = (isHomeTop: boolean) => {
+    return {
+        type: 'SET_IS_HOME_TOP',
+        payload: {isHomeTop}
+    } as const;
+};
 export const setCurrentPage = (currentPage: PageTitleType) => {
     return {
         type: 'SET_CURRENT_PAGE',

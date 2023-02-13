@@ -1,6 +1,7 @@
 import {FeedbackDataType} from "../components/Main/ContactMe/FeedBack/FeedbackForm/FeedbackForm";
-import {PageTitleType, setCurrentPage} from "../bll/definitionsReducer";
+import {PageTitleType, setCurrentPage, setIsHomeTop} from "../bll/definitionsReducer";
 import {ThunkAppDispatchType} from "./customHooks";
+import {log} from "util";
 
 type ConverterPointType = 'preview' | 'emailJS';
 
@@ -32,6 +33,19 @@ export const superScrollListener = (elementId: PageTitleType, dispatch: ThunkApp
     return () => {
         let element = document.getElementById(elementId);
         let isMe = false;
+        let isHomeTop = false;
+
+        // init page
+        let {top, height} = element!.getBoundingClientRect();
+        if (top <= 0 - correctPx && top > -height - correctPx) {
+            dispatch(setCurrentPage(elementId));
+        }
+
+        // init HomeTop
+        if (elementId === "home" && top === 0) {
+            isHomeTop = true;
+            dispatch(setIsHomeTop(true));
+        }
 
         const scrollHandler = () => {
             let {height, top} = element!.getBoundingClientRect();
@@ -44,6 +58,18 @@ export const superScrollListener = (elementId: PageTitleType, dispatch: ThunkApp
             if (!isMeTest) {
                 isMe = isMeTest;
             }
+
+            // change isHomeTop
+            if (elementId === 'home' && isMe) {
+                if (top === 0 && !isHomeTop) {
+                    isHomeTop = true;
+                    dispatch(setIsHomeTop(true));
+                }
+                if (top !== 0 && isHomeTop) {
+                    isHomeTop = false;
+                    dispatch(setIsHomeTop(false));
+                }
+            }
         };
 
         document.addEventListener('scroll', scrollHandler);
@@ -52,4 +78,21 @@ export const superScrollListener = (elementId: PageTitleType, dispatch: ThunkApp
             document.removeEventListener('scroll', scrollHandler);
         };
     };
+};
+
+// function for split number to three digits;
+export const splitNumToStringThree = (num: number | null): string | null => {
+    if (!num) return null;
+    let numStr: string = String(num);
+    if (numStr.length < 3) return numStr;
+
+    let firstLength: number = numStr.length % 3;
+    let first = numStr.slice(0, firstLength);
+    if (first) first = first + ' ';
+
+    let threeNumStr = numStr.slice(firstLength);
+    let threeNumArr = threeNumStr.match(/[0-9]{3}/g);
+    let second = threeNumArr ? threeNumArr.join(' ') : '';
+
+    return first + second;
 };

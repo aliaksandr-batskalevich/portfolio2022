@@ -6,6 +6,7 @@ import {useSelector} from "react-redux";
 import {getCountry, getGeneralInfo, getMainQualities} from "../../../bll/selectors";
 import {useAppDispatch} from "../../../utilites/customHooks";
 import {superScrollListener} from "../../../utilites/utilitesFunctions";
+import myPhoto1 from '../../../assets/images/meFirstPage.png'
 
 export const Home = () => {
 
@@ -53,6 +54,9 @@ export const Home = () => {
     return (
         <div id='home' className={s.homePageWrapper}>
             <div className='container'>
+                <div className={s.myPhoto1}>
+                    <img src={myPhoto1} alt=""/>
+                </div>
                 <div className={s.shortInf}>
                     <h3>{fullNameToRender}</h3>
                     <Writer mainQualities={mainQualities}/>

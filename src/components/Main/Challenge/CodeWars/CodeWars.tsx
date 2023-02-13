@@ -9,6 +9,7 @@ import {
 } from "../../../../bll/selectors";
 import {useAppDispatch} from "../../../../utilites/customHooks";
 import {getUserDataTC} from "../../../../bll/challengeReducer";
+import {splitNumToStringThree} from "../../../../utilites/utilitesFunctions";
 
 export const CodeWars = () => {
 
@@ -22,6 +23,11 @@ export const CodeWars = () => {
     let rankName = overall.name;
     let rankColorStyle = {color: 'dark' + overall.color};
     let completedKata = codeChallenges.totalCompleted;
+
+    let honorToRender = splitNumToStringThree(honor);
+    let leaderboardPositionToRender = splitNumToStringThree(leaderboardPosition);
+    let completedKataToRender = splitNumToStringThree(completedKata);
+
 
     const dispatch = useAppDispatch();
 
@@ -45,10 +51,10 @@ export const CodeWars = () => {
 
     let optionPartsArr = [
         new OptionPart('username: ', username),
-        new OptionPart('honor: ', honor),
-        new OptionPart('leaderboardPosition: ', leaderboardPosition),
+        new OptionPart('honor: ', honorToRender),
+        new OptionPart('leaderboardPosition: ', leaderboardPositionToRender),
         new OptionPart('languages: ', languagesToRender),
-        new OptionPart('completed kata: ', completedKata),
+        new OptionPart('completed kata: ', completedKataToRender),
     ];
 
     let optionPartsToRender = optionPartsArr.map((el, index) => <div key={index}>

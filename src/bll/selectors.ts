@@ -16,6 +16,7 @@ import {ResumeStateType} from "./resumeReduucer";
 import {SnackbarMessageType} from "./snackbarReducer";
 
 // definitions
+export const getIsHomeTop = (state: RootAppStateType): boolean => state.definitions.isHomeTop;
 export const getCurrentPage = (state: RootAppStateType): PageTitleType => state.definitions.currentPage;
 export const getNumOfCodeWarsUsers = (state: RootAppStateType): string => state.definitions.numOfCodeWarsUsers;
 export const getFollowMeNetworks = (state: RootAppStateType): Array<string> => state.definitions.followMeNetworks;

@@ -3,13 +3,16 @@ import s from './Header.module.scss'
 import {Navigation} from "./Navigation/Navigation";
 import {Logo} from "./Logo/Logo";
 import {useSelector} from "react-redux";
-import {getCurrentPage} from "../../bll/selectors";
+import {getCurrentPage, getIsHomeTop} from "../../bll/selectors";
 
 export const Header = () => {
 
+    let isHomeTop = useSelector(getIsHomeTop);
     let currentPage = useSelector(getCurrentPage);
 
-    let headerWrapperClassName = currentPage === 'home' ? `${s.headerWrapper} ${s.headerWrapperOpacity}` : s.headerWrapper;
+    let headerWrapperClassName = currentPage === 'home' && isHomeTop
+        ? `${s.headerWrapper} ${s.headerWrapperOpacity}`
+        : s.headerWrapper;
 
     return (
         <div className={headerWrapperClassName}>
