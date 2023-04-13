@@ -5,6 +5,7 @@ import {useAppDispatch} from "../../../../../../utilites/customHooks";
 import {useSelector} from "react-redux";
 import {getProjectsTitlesForRatingSelectSort} from "../../../../../../bll/selectors";
 import {addSnackbarInfoMessage} from "../../../../../../bll/snackbarReducer";
+import {v1} from "uuid";
 
 type AddProjectPropsType = {
     projects: Array<ProjectToRatingType>
@@ -31,14 +32,18 @@ export const AddProject: React.FC<AddProjectPropsType> = ({projects}) => {
         dispatch(addSnackbarInfoMessage('Set rating, please!'));
     };
 
-    let optionsToRender = projectsForSelect.map((pr, index) => <option key={index} value={pr}>{pr}</option>);
+    let optionsToRender = projectsForSelect.map(pr => <option key={v1()} value={pr}>{pr}</option>);
     let isAddProjectToRatingDisabled = projectSelector === defaultOption;
+
+    const selectClassName = optionsToRender.length ? s.cursorPointer : '';
+    const buttonClassName = isAddProjectToRatingDisabled ? `${s.addProjectRatingButton}` : `${s.addProjectRatingButton} ${s.cursorPointer}`;
 
     return (
         <div className={s.addProjectWrapper}>
             <label htmlFor="projectSelector">Add project to rating:</label>
             <select
                 id="projectSelector"
+                className={selectClassName}
                 name="projectSelector"
                 value={projectSelector}
                 onChange={changeProjectSelectorHandler}
@@ -48,7 +53,7 @@ export const AddProject: React.FC<AddProjectPropsType> = ({projects}) => {
                 {optionsToRender}
             </select>
             <button
-                className={s.addProjectRatingButton}
+                className={buttonClassName}
                 type='button'
                 onClick={addProjectToRatingHandler}
                 disabled={isAddProjectToRatingDisabled}

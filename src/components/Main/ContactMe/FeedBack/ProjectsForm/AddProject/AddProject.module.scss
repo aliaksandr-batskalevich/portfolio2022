@@ -10,6 +10,7 @@
       color: black;
     }
   }
+
   .addProjectRatingButton {
     padding: 0 5px;
     color: green;
@@ -18,5 +19,9 @@
       content: '✓';
       font-weight: bold;
     }
+  }
+
+  .cursorPointer {
+    cursor: pointer;
   }
 }
