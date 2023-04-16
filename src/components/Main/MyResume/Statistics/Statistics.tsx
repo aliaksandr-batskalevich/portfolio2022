@@ -1,7 +1,7 @@
 import React from "react";
 import s from './Statistics.module.scss';
 import {StatisticPart} from "./StatisticsPart/StatisticPart";
-import {StatisticType} from "../../../../bll/resumeReduucer";
+import {StatisticType} from "../../../../bll/resumeReducer";
 
 type StatisticsPropsType = {
     isActive: boolean

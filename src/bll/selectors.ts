@@ -12,7 +12,7 @@ import {
     SnackbarTimingSecType
 } from "./definitionsReducer";
 import {CodeWarsDataType} from "./challengeReducer";
-import {ResumeStateType} from "./resumeReduucer";
+import {ResumeStateType} from "./resumeReducer";
 import {SnackbarMessageType} from "./snackbarReducer";
 
 // definitions

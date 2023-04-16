@@ -6,7 +6,7 @@ import {aboutMeReducer} from "./aboutMeReducer";
 import {DefinitionsActionsType, definitionsReducer} from "./definitionsReducer";
 import {ProjectsActionsType, projectsReducer} from "./projectsReducer";
 import {ChallengeActionsType, challengeReducer} from "./challengeReducer";
-import {resumeReducer} from "./resumeReduucer";
+import {resumeReducer} from "./resumeReducer";
 import {SnackbarActionsType, snackbarReducer} from "./snackbarReducer";
 
 
