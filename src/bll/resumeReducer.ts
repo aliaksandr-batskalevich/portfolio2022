@@ -34,6 +34,7 @@ const resumeInitState: ResumeStateType = {
             {id: v1(), institution: 'COMMAND AND ENGINEERING INSTITUTE OF THE MINISTRY OF EMERGENCY SITUATIONS OF THE REPUBLIC OF BELARUS', speciality: 'Emergency response engineer', period: 'JUL 2006 - JUL 2010'},
         ],
         workExperience: [
+            {id: v1(), workPlace: 'Freelance', position: 'Fullstack developer', period: 'MAR 2023 - present time'},
             {id: v1(), workPlace: 'SCAND', position: 'Front-end developer', period: 'JAN 2022 - MAR 2023'},
             {id: v1(), workPlace: 'BREST REGIONAL DEPARTMENT OF THE MINISTRY OF EMERGENCY SITUATIONS', position: 'Chief of firefighting staff', period: 'AUG 2010 - DEC 2021'},
         ],
