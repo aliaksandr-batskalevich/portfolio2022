@@ -9,9 +9,27 @@
       display: flex;
       justify-content: space-between;
 
+      @media screen and (max-width: $width-adaptive-step-three){
+        width: unset;
+      }
+      @media screen and (max-width: $width-adaptive-step-four){
+        margin-left: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
       li {
 
+        @media screen and (max-width: $width-adaptive-step-three){
+          &:not(:first-child) {
+            margin-left: 10px;
+          }
+        }
+
         a {
+          @media screen and (max-width: $width-adaptive-step-three){
+            font-size: 14px;
+          }
         }
       }
     }

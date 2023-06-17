@@ -17,6 +17,28 @@
 .container {
     max-width: 1200px;
     margin: auto;
+
+    // 1350px
+    @media screen and (max-width: $width-adaptive-step-one){
+        max-width: 1000px;
+    }
+    // 1150px
+    @media screen and (max-width: $width-adaptive-step-two){
+        max-width: 800px;
+    }
+    // 950px
+    @media screen and (max-width: $width-adaptive-step-three){
+        max-width: 85%;
+    }
+    // 768px
+    @media screen and (max-width: $width-adaptive-step-four){
+        max-width: 80%;
+    }
+    // 450px
+    @media screen and (max-width: $width-adaptive-step-five){
+        max-width: 95%;
+    }
+
 }
 
 .AppWrapper {
@@ -29,8 +51,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h2 {
-    font-size: $h2-font-size;
+    font-size: $h2-font-size; // 40px
     text-align: center;
+
+    @media screen and (max-width: $width-adaptive-step-four){
+        font-size: 30px;
+    }
+    @media screen and (max-width: $width-adaptive-step-five){
+        font-size: 25px;
+    }
 }
 
 h3 {

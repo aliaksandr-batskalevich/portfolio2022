@@ -13,30 +13,59 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      font-size: 20px;
     }
 
     .secondColumn {
       margin-left: 60px;
 
+      @media screen and (max-width: $width-adaptive-step-four){
+        margin-left: 20px;
+      }
+
       .rank {
         font-size: 100px;
+
+        @media screen and (max-width: $width-adaptive-step-one){
+          font-size: 55px;
+        }
+        @media screen and (max-width: $width-adaptive-step-three){
+          font-size: 40px;
+        }
+        @media screen and (max-width: $width-adaptive-step-four){
+          font-size: 35px;
+        }
       }
     }
 
-    .title {
-      font-weight: bold;
+    .options {
+      font-size: 20px;
+
+      @media screen and (max-width: $width-adaptive-step-two){
+        font-size: 14px;
+      }
+      @media screen and (max-width: $width-adaptive-step-three){
+        font-size: 12px;
+      }
+
+      .title {
+        font-weight: bold;
+      }
+
+      .value {
+        color: $red-color
+      }
+
+      .numOfCodeWarsUsers {
+        font-size: .75em;
+        color: $font-darken-color;
+
+        @media screen and (max-width: $width-adaptive-step-three){
+          display: none;
+        }
+      }
+    }
     }
 
-    .value {
-      color: $red-color
-    }
-
-    .numOfCodeWarsUsers {
-      font-size: .75em;
-      color: $font-darken-color;
-    }
-  }
 
   .buttonWrapper {
     margin-top: 15px;

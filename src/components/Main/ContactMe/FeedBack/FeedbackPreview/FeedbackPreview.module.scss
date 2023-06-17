@@ -3,12 +3,18 @@
 .feedbackPreviewWrapper {
   padding: 30px 15px;
   width: 70%;
-  //min-height: 70%;
   position: absolute;
   top: 30%;
   left: 50%;
   transform: translate(-50%, 0);
   background-color: white;
+
+  @media screen and (max-width: $width-adaptive-step-two){
+    width: 80%;
+  }
+  @media screen and (max-width: $width-adaptive-step-four){
+    width: 95%;
+  }
 
   .feedbackPreviewContentWrapper {
     position: relative;
@@ -16,7 +22,14 @@
 
     span {
       color: black;
-      white-space: pre-wrap
+      white-space: pre-wrap;
+
+      @media screen and (max-width: $width-adaptive-step-three){
+        font-size: 14px;
+      }
+      @media screen and (max-width: $width-adaptive-step-five){
+        font-size: 12px;
+      }
     }
 
     .closeButton {

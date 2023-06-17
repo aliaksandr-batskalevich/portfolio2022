@@ -37,7 +37,7 @@ export const MyResume = () => {
                 <div className={s.titleWrapper}>
                     <h2>My resume</h2>
                 </div>
-                <div className={s.resumePartsWrapper} style={resumePartsWrapperHeightStyle}>
+                <div className={s.resumePartsWrapper} style={undefined}>
                     <ResumePart
                         studies={experience.studies}
                         isExperienceActive={isExperienceActive}
@@ -49,13 +49,11 @@ export const MyResume = () => {
                         timeToRenderSec={2}
                     />
                 </div>
-                <div className={s.statisticsWrapper}>
-                    <Statistics
-                        isActive={isStatisticActive}
-                        statisticsData={statisticsData}
-                        timeToRender={2000}
-                    />
-                </div>
+                <Statistics
+                    isActive={isStatisticActive}
+                    statisticsData={statisticsData}
+                    timeToRender={2000}
+                />
             </div>
         </div>
     )

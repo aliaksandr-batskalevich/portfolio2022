@@ -6,6 +6,16 @@
   display: flex;
   justify-content: space-around;
 
+  @media screen and (max-width: $width-adaptive-step-three){
+    width: unset;
+    min-width: 80%;
+    flex-direction: column;
+  }
+  @media screen and (max-width: $width-adaptive-step-four){
+    width: 95%;
+    min-width: unset;
+  }
+
   .myContactsColumn {
 
     .myContactWrapper {
@@ -18,15 +28,31 @@
       .myContactTitleWrapper {
         h4 {
           font-size: 16px;
+
+          @media screen and (max-width: $width-adaptive-step-two){
+            font-size: 14px;
+          }
+          @media screen and (max-width: $width-adaptive-step-four){
+            font-size: 12px;
+          }
         }
       }
+
       .myContactValueWrapper {
         display: flex;
         align-items: center;
+
         a {
           color: $font-darken-color;
           text-decoration: none;
           font-size: 16px;
+
+          @media screen and (max-width: $width-adaptive-step-two){
+            font-size: 12px;
+          }
+          @media screen and (max-width: $width-adaptive-step-four){
+            font-size: 10px;
+          }
 
           &:hover {
             text-decoration: underline;

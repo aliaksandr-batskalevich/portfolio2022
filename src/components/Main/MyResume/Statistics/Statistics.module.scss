@@ -1,6 +1,16 @@
-.statisticsWrapper {
-    width: 100%;
+@import "/src/definitions";
 
-    display: flex;
-    justify-content: space-around;
+.statisticsWrapper {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+
+  display: flex;
+  justify-content: space-around;
+
+  @media screen and (max-width: $width-adaptive-step-four){
+    flex-wrap: wrap;
+  }
 }

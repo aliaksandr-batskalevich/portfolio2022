@@ -26,7 +26,7 @@
 
   .contentWrapper {
     width: 100%;
-    margin-left: $arc-diameter;
+    padding-left: $arc-diameter;
 
     .arc {
       position: absolute;
@@ -41,6 +41,22 @@
 
     h4 {
       font-size: 16px;
+
+      @media screen and (max-width: $width-adaptive-step-one){
+        font-size: 14px;
+      }
+      @media screen and (max-width: $width-adaptive-step-two){
+        font-size: 12px;
+      }
+      @media screen and (max-width: $width-adaptive-step-three){
+        font-size: 16px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      @media screen and (max-width: $width-adaptive-step-four){
+        //font-size: 12px;
+      }
     }
 
     .textFlexWrapper {
@@ -51,9 +67,30 @@
       p {
         font-size: 16px;
 
-        &:nth-child(1) {
-          color: $font-darken-color;
+        @media screen and (max-width: $width-adaptive-step-one){
+          font-size: 14px;
         }
+        @media screen and (max-width: $width-adaptive-step-two){
+          font-size: 12px;
+        }
+        @media screen and (max-width: $width-adaptive-step-three){
+          font-size: 14px;
+        }
+        @media screen and (max-width: $width-adaptive-step-four){
+          font-size: 12px;
+        }
+      }
+
+      .description {
+        color: $font-darken-color;
+
+        @media screen and (max-width: $width-adaptive-step-five){
+          display: none;
+        }
+      }
+
+      .period {
+
       }
     }
   }

@@ -41,8 +41,8 @@ export const ResumeStage: React.FC<ResumeStagePropsType> = ({study, work, order,
                     <h4>{title}</h4>
                 </div>
                 <div className={s.textFlexWrapper}>
-                    <p>{description}</p>
-                    <p>{period}</p>
+                    <p className={s.description}>{description}</p>
+                    <p className={s.period}>{period}</p>
                 </div>
             </div>
         </div>

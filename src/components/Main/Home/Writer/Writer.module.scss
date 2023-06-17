@@ -5,6 +5,18 @@
   height: 80px;
   font-size: 50px;
 
+  @media screen and (max-width: $width-adaptive-step-three) {
+    font-size: 40px;
+  }
+  @media screen and (max-width: $width-adaptive-step-four) {
+    height: 60px;
+    font-size: 25px;
+  }
+  @media screen and (max-width: $width-adaptive-step-five) {
+    height: 40px;
+    font-size: 20px;
+  }
+
   & > div {
     display: inline-block;
   }

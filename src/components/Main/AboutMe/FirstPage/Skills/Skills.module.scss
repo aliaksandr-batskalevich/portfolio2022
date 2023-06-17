@@ -1,14 +1,24 @@
+@import "/src/definitions";
+
 .skillsWrapper {
+
   h3 {
     text-align: center;
   }
+
   .skillsFlexWrapper {
     margin-top: 10px;
     min-height: 250px;
     display: flex;
     justify-content: space-around;
-  }
-}
 
-.id {
+    @media screen and (max-width: $width-adaptive-step-one){
+      flex-wrap: wrap;
+
+      >div {
+        margin-top: 20px;
+      }
+    }
+
+  }
 }

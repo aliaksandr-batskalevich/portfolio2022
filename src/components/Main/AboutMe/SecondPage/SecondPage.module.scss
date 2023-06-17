@@ -14,6 +14,16 @@
       width: 70%;
       font-size: 36px;
 
+      @media screen and (max-width: $width-adaptive-step-two){
+       font-size: 25px;
+      }
+      @media screen and (max-width: $width-adaptive-step-four){
+        font-size: 20px;
+      }
+      @media screen and (max-width: $width-adaptive-step-five){
+        font-size: 16px;
+      }
+
       &:first-child::before {
         content: '\201D';
         display: block;
@@ -22,13 +32,36 @@
 
         color: $red-color;
         font-size: 200px;
-        line-height: 160px;
+        line-height: 80%;
+
+        @media screen and (max-width: $width-adaptive-step-two){
+          height: 40px;
+          font-size: 150px;
+        }
+        @media screen and (max-width: $width-adaptive-step-four){
+          height: 30px;
+          font-size: 120px;
+        }
+        @media screen and (max-width: $width-adaptive-step-five){
+          height: 25px;
+          font-size: 100px;
+        }
       }
     }
 
     .subscription {
       color: $font-darken-color;
       text-align: right;
+
+      @media screen and (max-width: $width-adaptive-step-two){
+        font-size: 20px;
+      }
+      @media screen and (max-width: $width-adaptive-step-four){
+        font-size: 18px;
+      }
+      @media screen and (max-width: $width-adaptive-step-five){
+        font-size: 14px;
+      }
     }
   }
 }

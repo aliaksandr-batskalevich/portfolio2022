@@ -57,7 +57,7 @@ export const CodeWars = () => {
         new OptionPart('completed kata: ', completedKataToRender),
     ];
 
-    let optionPartsToRender = optionPartsArr.map((el, index) => <div key={index}>
+    let optionPartsToRender = optionPartsArr.map((el, index) => <div className={s.options} key={index}>
         <span className={s.title}>{el.title}</span>
         <span className={s.value}>{el.value}</span>
 

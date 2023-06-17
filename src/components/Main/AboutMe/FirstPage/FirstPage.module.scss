@@ -3,7 +3,7 @@
 .firstPage {
   padding-bottom: 80px;
 
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -17,8 +17,17 @@
 
     p {
       width: 70%;
-
       font-size: 22px;
+
+      @media screen and (max-width: $width-adaptive-step-two){
+        font-size: 18px;
+      }
+      @media screen and (max-width: $width-adaptive-step-four){
+        font-size: 14px;
+      }
+      @media screen and (max-width: $width-adaptive-step-five){
+        font-size: 12px;
+      }
     }
   }
 }

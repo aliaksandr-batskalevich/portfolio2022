@@ -1,25 +1,23 @@
 @import "/src/definitions";
 
 .myResumePageWrapper {
-    min-height: 100vh;
 
     > div {
-        height: 100vh;
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
     }
 
     .resumePartsWrapper {
-
         margin-top: 10px;
         display: flex;
         justify-content: space-between;
-    }
 
-    .statisticsWrapper {
-        flex-grow: 1;
-        display: flex;
-        align-items: center;
+        @media screen and (max-width: $width-adaptive-step-three){
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
     }
 }
 

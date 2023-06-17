@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React from "react";
 import s from "../Skill.module.scss";
 
 type DiagramPropsType = {
@@ -66,7 +66,7 @@ export class Diagram extends React.Component<DiagramPropsType, any> {
 
     render() {
         return (
-            <div className={s.skillWrapper}>
+            <div className={s.diagram}>
                 <canvas
                     ref={'canvas'}
                     height={this.height}

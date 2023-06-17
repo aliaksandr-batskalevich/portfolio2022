@@ -26,6 +26,10 @@
             height: 100vh;
             //opacity: .5;
         }
+
+        @media screen and (max-width: $width-adaptive-step-four){
+            display: none;
+        }
     }
 
     .shortInf {
@@ -39,6 +43,10 @@
         color: $red-color;
         font-size: 20px;
         font-weight: normal;
+
+        @media screen and (max-width: $width-adaptive-step-four) {
+            font-size: 16px;
+        }
     }
     .smallBlockWrapper {
         display: flex;
@@ -51,9 +59,27 @@
             border-left: $font-darken-color solid 2px;
             min-width: 100px;
 
+            @media screen and (max-width: $width-adaptive-step-four){
+                min-width: 70px;
+            }
+
+            h4 {
+                @media screen and (max-width: $width-adaptive-step-three){
+                    font-size: 16px;
+                }
+                @media screen and (max-width: $width-adaptive-step-four){
+                    font-size: 14px;
+                }
+            }
+
             p {
                 color: $font-darken-color;
+
+                @media screen and (max-width: $width-adaptive-step-four){
+                    font-size: 12px;
+                }
             }
+
             .birthdayParagraph {
                 color: gold;
             }

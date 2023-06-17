@@ -1,14 +1,28 @@
 @import "/src/definitions";
 
 .resumePartWrapper {
-
     width: 48%;
+
+
+    @media screen and (max-width: $width-adaptive-step-three){
+        width: 500px;
+
+        &:not(:first-child) {
+            margin-top: 20px;
+        }
+    }
+    @media screen and (max-width: $width-adaptive-step-four){
+        width: 90%;
+    }
+    //@media screen and (max-width: $width-adaptive-step-five){
+        //width: 300px;
+    //}
 
     .titleWrapper {
 
     }
 
-    .stageWrapper {
+    .stagesWrapper {
         height: 78px;
 
         position: relative;

@@ -1,7 +1,17 @@
+@import "/src/definitions";
+
 .addProjectWrapper {
   margin-top: 10px;
+
   > :not(:first-child) {
     margin-left: 10px;
+  }
+
+  label {
+
+    @media screen and (max-width: $width-adaptive-step-four){
+      font-size: 12px;
+    }
   }
 
   select {
