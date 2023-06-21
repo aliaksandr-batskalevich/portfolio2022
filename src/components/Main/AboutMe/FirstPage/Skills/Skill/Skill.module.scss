@@ -4,10 +4,6 @@
 .skillWrapper {
     display: inline-block;
 
-    @media screen and (max-width: $width-adaptive-step-four){
-        margin-left: 10px;
-    }
-
     .diagramWrapper {
         position: relative;
     }
@@ -19,14 +15,6 @@
         left: 50%;
         transform: translateX(-50%) translateY(-50%);
         text-align: center;
-
-        @media screen and (max-width: $width-adaptive-step-five){
-            position: unset;
-            transform: unset;
-            top: unset;
-            left: unset;
-            font-size: 35px;
-        }
     }
 
     .skillTitle {
@@ -41,9 +29,6 @@
 
     .diagram {
 
-        @media screen and (max-width: $width-adaptive-step-five){
-            display: none;
-        }
     }
 }
 

@@ -17,6 +17,7 @@ export type ToolType =
     | 'React'
     | 'Redux'
     | 'REST-API'
+    | 'WebSocket'
     | 'TDD'
     | 'StoryBook'
     | 'Redux-Form'
@@ -24,7 +25,15 @@ export type ToolType =
     | 'EmailJS'
     | 'MUI'
     | 'Reselect'
+    | 'Node.js'
+    | 'Express.js'
+    | 'Express-validator'
+    | 'Express-ws'
+    | 'NodeMailer'
+    | 'JWT'
+    | 'PostgreSQL'
     | 'OOP';
+
 export type RatingType = 0 | 1 | 2 | 3 | 4 | 5;
 type RatingStateType = {
     averageRating: number
@@ -185,6 +194,51 @@ const projectsInitState: ProjectsStateType = {
             tools: ["HTML", "CSS"],
             rating: {
                 averageRating: 4.2,
+                currentRating: null,
+                dateCurrentRatingAdd: null,
+            },
+            comments: '',
+        },
+        {
+            id: v1(),
+            title: 'Test EA',
+            image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/800px-JavaScript-logo.png',
+            description: 'Test task using native JavaScript.',
+            codeLink: 'https://github.com/aliaksandr-batskalevich/ea-test',
+            viewLink: 'http://35.239.107.150/ea-test/',
+            tools: ["HTML", "SCSS", "JavaScript", "REST-API"],
+            rating: {
+                averageRating: 4.5,
+                currentRating: null,
+                dateCurrentRatingAdd: null,
+            },
+            comments: '',
+        },
+        {
+            id: v1(),
+            title: 'SocialNet by me',
+            image: 'https://socialcare.blog.gov.uk/wp-content/uploads/sites/8/2020/12/ClipartKey_263846-e1608120056981.png',
+            description: 'Social network using my backend. Frontend part.',
+            codeLink: 'https://github.com/aliaksandr-batskalevich/checkers-frontend',
+            viewLink: 'http://35.239.107.150/',
+            tools: ["HTML", "SCSS", "TypeScript", "React", "Redux", "REST-API", "WebSocket", "Formik", "Reselect", "OOP"],
+            rating: {
+                averageRating: 5,
+                currentRating: null,
+                dateCurrentRatingAdd: null,
+            },
+            comments: '',
+        },
+        {
+            id: v1(),
+            title: 'Social backend',
+            image: 'https://media.istockphoto.com/id/993955576/photo/computer-code-on-screen.jpg?s=612x612&w=0&k=20&c=6IxdPUVYPWzpwGzkcLq66JRj-3jYXUQot9eUPy_auv4=',
+            description: 'Node.js learning project. Backend for my SocialNet.',
+            codeLink: 'https://github.com/aliaksandr-batskalevich/checkers-backend',
+            viewLink: 'http://35.239.107.150/',
+            tools: ["JavaScript", "Node.js", "Express.js", "Express-validator", "Express-ws", "WebSocket", "NodeMailer", "JWT", "PostgreSQL", "OOP"],
+            rating: {
+                averageRating: 5,
                 currentRating: null,
                 dateCurrentRatingAdd: null,
             },
